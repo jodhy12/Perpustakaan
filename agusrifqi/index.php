@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    ini Forlder Agusrifqi
+    ini Folder Agusrifqi
 </body>
 
 </html>
