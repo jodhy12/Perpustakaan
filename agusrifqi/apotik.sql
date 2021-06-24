@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 23/06/2021 14:29:58
+ Date: 24/06/2021 11:54:45
 */
 
 SET NAMES utf8mb4;
@@ -64,7 +64,7 @@ CREATE TABLE `karyawan`  (
 -- Records of karyawan
 -- ----------------------------
 INSERT INTO `karyawan` VALUES (4, 'Mochamad', 'Cikarang', '02192992');
-INSERT INTO `karyawan` VALUES (5, 'Agus', 'Ciakarang', '021323392');
+INSERT INTO `karyawan` VALUES (5, 'Agus', 'Tangerang Selatan', '021323392');
 INSERT INTO `karyawan` VALUES (6, 'Rifqi', 'Bekasi', '9839832932');
 INSERT INTO `karyawan` VALUES (7, 'Rijal', 'Jakarta', '09320320');
 INSERT INTO `karyawan` VALUES (8, 'Effendi', 'Bogor', '93292');
