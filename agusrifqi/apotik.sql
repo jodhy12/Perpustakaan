@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 24/06/2021 11:54:45
+ Date: 28/06/2021 18:21:44
 */
 
 SET NAMES utf8mb4;
@@ -41,7 +41,7 @@ INSERT INTO `detailtransaksi` VALUES (1, 1, 11, 1, 11000);
 INSERT INTO `detailtransaksi` VALUES (2, 2, 10, 2, 10000);
 INSERT INTO `detailtransaksi` VALUES (3, 3, 9, 3, 9000);
 INSERT INTO `detailtransaksi` VALUES (4, 4, 8, 4, 8000);
-INSERT INTO `detailtransaksi` VALUES (5, 5, 10, 3, 10000);
+INSERT INTO `detailtransaksi` VALUES (5, NULL, 10, 3, 10000);
 INSERT INTO `detailtransaksi` VALUES (6, 6, 10, 2, 10000);
 INSERT INTO `detailtransaksi` VALUES (7, 7, 2, 10, 2000);
 INSERT INTO `detailtransaksi` VALUES (8, 8, 3, 3, 3000);
@@ -95,7 +95,6 @@ CREATE TABLE `obat`  (
 INSERT INTO `obat` VALUES (2, 'promag', 'Tablet', 2000, 1);
 INSERT INTO `obat` VALUES (3, 'Decolgen', 'kaplet', 3000, 2);
 INSERT INTO `obat` VALUES (4, 'Tolakangin', 'Bks', 4000, 6);
-INSERT INTO `obat` VALUES (5, 'Bodrex', 'Tablet', 5000, 10);
 INSERT INTO `obat` VALUES (6, 'Ultraflu', 'Kapsul', 6000, 9);
 INSERT INTO `obat` VALUES (7, 'Komix', 'Bks', 7000, 7);
 INSERT INTO `obat` VALUES (8, 'Bipro', 'Botol', 8000, 3);
@@ -122,7 +121,7 @@ INSERT INTO `pemasok` VALUES (1, 'Kalbe Farma', 'MM 200 Cikarang Bekasi', '021 0
 INSERT INTO `pemasok` VALUES (2, 'dexa', 'Jakarta', '021 09338');
 INSERT INTO `pemasok` VALUES (3, 'Bio', 'Bandung', '030232');
 INSERT INTO `pemasok` VALUES (4, 'Delcom', 'Bekasi', '30293290');
-INSERT INTO `pemasok` VALUES (5, 'Sinovac', 'Cina', '0292392');
+INSERT INTO `pemasok` VALUES (5, 'konimex', 'solo', '0292392');
 INSERT INTO `pemasok` VALUES (6, 'Sidomuncul', 'Semarang', '0203903');
 INSERT INTO `pemasok` VALUES (7, 'Bintangtujuh', 'Jakarta', '0029923');
 INSERT INTO `pemasok` VALUES (8, 'Kimiafarma', 'Bandung', '0972963');
