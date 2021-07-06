@@ -44,7 +44,7 @@ $penerbit = $conn->query($sqlpenerbit);
             echo "<td>" . $penerbit_data['email'] . "</td>";
             echo "<td>" . $penerbit_data['telp'] . "</td>";
             echo "<td>" . $penerbit_data['alamat'] . "</td>";
-            echo "<td><a class='btn btn-primary' href='edit.php?id_penerbit=$penerbit_data[id_penerbit]'>Edit</a> | <a class='btn btn-danger' href='hapus.php?id_penerbit=$penerbit_data[id_penerbit]'>Delete</a></td></tr>";
+            echo "<td><a class='btn btn-success' href='edit.php?id_penerbit=$penerbit_data[id_penerbit]'>Edit</a> | <a class='btn btn-danger' href='hapus.php?id_penerbit=$penerbit_data[id_penerbit]'>Delete</a></td></tr>";
         }
         ?>
     </table>

@@ -44,7 +44,7 @@ $pengarang = $conn->query($sqlpengarang);
             echo "<td>" . $pengarang_data['email'] . "</td>";
             echo "<td>" . $pengarang_data['telp'] . "</td>";
             echo "<td>" . $pengarang_data['alamat'] . "</td>";
-            echo "<td><a class='btn btn-primary' href='edit.php?id_pengarang=$pengarang_data[id_pengarang]'>Edit</a> | <a class='btn btn-danger' href='hapus.php?id_pengarang=$pengarang_data[id_pengarang]'>Delete</a></td></tr>";
+            echo "<td><a class='btn btn-success' href='edit.php?id_pengarang=$pengarang_data[id_pengarang]'>Edit</a> | <a class='btn btn-danger' href='hapus.php?id_pengarang=$pengarang_data[id_pengarang]'>Delete</a></td></tr>";
         }
         ?>
     </table>
