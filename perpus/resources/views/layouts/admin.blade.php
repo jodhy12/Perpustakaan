@@ -102,15 +102,60 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+          <li class="nav-item">
+            <a href="{{ url('dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active':'' }}">
+              <i class="nav-icon fas fa-th"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
           </li>
+
+          {{-- data master collaps --}}
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Data Master
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('katalog') }}" class="nav-link {{ request()->is('katalog') ? 'active':'' }}">
+                  <i class="nav-icon far fa-circle"></i>
+                  <p>
+                    Katalog
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('penerbit') }}" class="nav-link {{ request()->is('penerbit') ? 'active':'' }}">
+                  <i class="nav-icon far fa-circle"></i>
+                  <p>
+                    Penerbit
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('pengarang') }}" class="nav-link {{ request()->is('pengarang') ? 'active':'' }}">
+                  <i class="nav-icon far fa-circle"></i>
+                  <p>
+                    Pengarang
+                  </p>
+                </a>  
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('anggota') }}" class="nav-link {{ request()->is('anggota') ? 'active':'' }}">
+                  <i class="nav-icon far fa-circle"></i>
+                  <p>
+                    Anggota
+                  </p>
+                </a>  
+              </li>
+            </ul>
+          </li>
+          {{-- /data master collaps --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -127,7 +172,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Dashboard</h1>
+              <h1 class="m-0">@yield('header')</h1>
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
