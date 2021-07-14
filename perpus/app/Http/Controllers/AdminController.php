@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Buku;
+use App\Peminjaman;
 
 class AdminController extends Controller
 {
@@ -12,6 +14,8 @@ class AdminController extends Controller
     }
     public function dashboard()
     {
+        $data = Buku::with('penerbit', 'pengarang', 'katalog')->get();
+        return $data;
         return view('admin.dashboard');
     }
     public function katalog()
