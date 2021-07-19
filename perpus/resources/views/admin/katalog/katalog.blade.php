@@ -11,7 +11,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th style="width: 10px" class="text-center">No</th>
+                            <th style="width: 10px" class="text-center">#</th>
                             <th class="text-center">Nama Katalog</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -22,8 +22,12 @@
                             <td>{{ $num+1 }}.</td>
                             <td>{{ $katalog->nama }}</td>
                             <td class="text-right">
-                                <a href="" class="btn btn-warning btn-sm">Ubah</a>
-                                <a href="" class="btn btn-danger btn-sm">Hapus</a>
+                                <a href="{{ url('data/katalog/'.$katalog->id.'/edit') }}" class="btn btn-warning btn-sm">Ubah</a>
+                                <form action="{{ url('data/katalog',['id' => $katalog->id]) }}" method="post">
+                                    <input class="btn btn-danger btn-sm" type="submit" value="Hapus" onclick="return confirm('Are You Sure?')">
+                                    @method('delete')
+                                    @csrf
+                                </form>
                             </td>
                         </tr>
                             
