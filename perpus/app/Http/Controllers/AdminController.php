@@ -23,9 +23,8 @@ class AdminController extends Controller
     }
     public function katalog()
     {
-        $data_katalog = Katalog::where('id', '5')->get();
-        return $data_katalog;
-        return view('admin.katalog');
+        $data_katalog = Katalog::all();
+        return view('admin.katalog.katalog', compact('data_katalog'));
     }
 
     public function penerbit()

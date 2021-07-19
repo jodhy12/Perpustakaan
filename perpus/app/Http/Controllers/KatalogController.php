@@ -24,7 +24,7 @@ class KatalogController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.katalog.add_katalog");
     }
 
     /**
