@@ -35,7 +35,7 @@
                                 <td>{{ $pengarang->alamat }}</td>
                                 <td class="text-right">
                                     <a href="#" @click="ubahData({{ $pengarang }})" class="btn btn-warning btn-sm">Ubah</a>
-                                    <a href="#" class="btn btn-danger btn-sm">Hapus</a>
+                                    <a href="#" @click='hapusData({{ $pengarang->id }})' class="btn btn-danger btn-sm">Hapus</a>
                                     
                                 </td>
                             </tr>
@@ -53,36 +53,37 @@
   <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
       <div class="modal-content">
-       <form action="#" method="post" autocomplete="off">
+       <form :action="actionUrl" method="post" autocomplete="off">
         <div class="modal-header">
-            <h5 class="modal-title" v-if ="!editstatus">Tambah Pengarang</h5>
-            <h5 class="modal-title" v-if ="editstatus">Edit Pengarang</h5>
+            <h5 class="modal-title" v-if ="!editStatus">Tambah Pengarang</h5>
+            <h5 class="modal-title" v-if ="editStatus">Edit Pengarang</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             @csrf
+            <input type="hidden" name="_method" value="PUT" v-if = "editStatus">
             <div class="form-group">
-                <label>Nama Katalog</label>
-                <input type="text" class="form-control" name="nama_pengarang" required="">
+                <label>Nama Pengarang</label>
+                <input type="text" class="form-control" name="nama_pengarang" :value="data.nama_pengarang" required="">
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input type="text" class="form-control" name="email" required="">
+                <input type="text" class="form-control" name="email" :value="data.email"  required="">
             </div>
             <div class="form-group">
                 <label>Telepon</label>
-                <input type="text" class="form-control" name="telp" required="">
+                <input type="text" class="form-control" name="telp" :value="data.telp" required="">
             </div>
             <div class="form-group">
                 <label>Alamat</label>
-                <input type="text" class="form-control" name="alamat" required="">
+                <input type="text" class="form-control" name="alamat" :value="data.alamat" required="">
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
 
        </form>
@@ -96,19 +97,33 @@
     var controller = new Vue({
         el : '#controller',
         data : {
-            editstatus = false,
+            editStatus : false,
+            data: {},
+            actionUrl: ''
         },
         mounted: function() {
 
         },
         methods: {
             tambahData() {
-                this.editstatus = false ;
+                this.editStatus = false ;
+                this.data = {};
+                this.actionUrl="{{ url('data/pengarang') }}";
                 $('#modal-default').modal();
             },
             ubahData(pengarang){
-                this.editstatus = true ;
+                this.editStatus = true ;
+                this.data = pengarang;
+                this.actionUrl="{{ url('data/pengarang') }}" + '/' + pengarang.id;
                 $('#modal-default').modal();
+            },
+            hapusData(id){
+                this.actionUrl="{{ url('data/pengarang') }}";
+                if(confirm("Are You Sure?")){
+                    axios.post(this.actionUrl+'/'+id, {_method:"DELETE"}).then(response=>{
+                        location.reload;
+                    });
+                }
             }
         }
     });

@@ -35,7 +35,14 @@ class PengarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama_pengarang' => ['required'],
+            'email' => ['required'],
+            'telp' => ['required'],
+            'alamat' => ['required']
+        ]);
+        Pengarang::create($request->all());
+        return back();
     }
 
     /**
@@ -69,7 +76,14 @@ class PengarangController extends Controller
      */
     public function update(Request $request, Pengarang $pengarang)
     {
-        //
+        $this->validate($request, [
+            'nama_pengarang' => ['required'],
+            'email' => ['required'],
+            'telp' => ['required'],
+            'alamat' => ['required']
+        ]);
+        $pengarang->update($request->all());
+        return back();
     }
 
     /**
@@ -80,6 +94,7 @@ class PengarangController extends Controller
      */
     public function destroy(Pengarang $pengarang)
     {
-        //
+        $pengarang->delete();
+        return back();
     }
 }
