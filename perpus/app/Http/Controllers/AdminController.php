@@ -35,9 +35,8 @@ class AdminController extends Controller
     }
     public function pengarang()
     {
-        $data_pengarang = Pengarang::whereBetween('id', [2, 4])->get();
-        return $data_pengarang;
-        return view('admin.pengarang');
+        $data_pengarang = Pengarang::all();
+        return view('admin.pengarang', compact('data_pengarang'));
     }
     public function anggota()
     {

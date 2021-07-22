@@ -27,4 +27,5 @@ Route::get('/pengarang', 'AdminController@pengarang');
 Route::get('/anggota', 'AdminController@anggota');
 Route::group(['prefix' => 'data'], function () {
     Route::resource('katalog', 'KatalogController');
+    Route::resource('pengarang', 'PengarangController');
 });
