@@ -97,8 +97,9 @@ class AnggotaController extends Controller
      * @param  \App\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Anggota $anggota)
+    public function destroy(Anggota $anggota, $id)
     {
+        $anggota = Anggota::find($id);
         $anggota->delete();
         return back();
     }
