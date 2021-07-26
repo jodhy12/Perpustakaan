@@ -77,7 +77,7 @@ class AnggotaController extends Controller
      * @param  \App\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Anggota $anggota)
+    public function update(Request $request, Anggota $anggota, $id)
     {
         $this->validate($request, [
             'nama' => ['required'],
@@ -86,6 +86,7 @@ class AnggotaController extends Controller
             'alamat' => ['required'],
             'email' => ['required']
         ]);
+        $anggota = Anggota::find($id);
         $anggota->update($request->all());
         return back();
     }
