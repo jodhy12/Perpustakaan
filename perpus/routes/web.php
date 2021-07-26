@@ -28,4 +28,6 @@ Route::get('/anggota', 'AdminController@anggota');
 Route::group(['prefix' => 'data'], function () {
     Route::resource('katalog', 'KatalogController');
     Route::resource('pengarang', 'PengarangController');
+    Route::resource('penerbit', 'PenerbitController');
+    Route::resource('anggota', 'AnggotaController');
 });

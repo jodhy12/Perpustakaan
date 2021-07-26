@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Anggota extends Model
 {
     protected $table = "anggota";
+    protected $fillable = [
+        'nama',
+        'sex',
+        'telp',
+        'alamat',
+        'email'
+    ];
     public function user()
     {
         return $this->hasOne('App\user', 'id_anggota');

@@ -17,9 +17,9 @@ class AdminController extends Controller
     }
     public function dashboard()
     {
-        $data_buku = Buku::orderBy('isbn', 'desc')->get();
-        return $data_buku;
-        return view('admin.dashboard');
+        // $data_buku = Buku::orderBy('isbn', 'desc')->get();
+        // return $data_buku;
+        // return view('admin.dashboard');
     }
     public function katalog()
     {
@@ -29,9 +29,8 @@ class AdminController extends Controller
 
     public function penerbit()
     {
-        $data_penerbit = Penerbit::count();
-        return $data_penerbit;
-        return view('admin.penerbit');
+        $data_penerbit = Penerbit::all();
+        return view('admin.penerbit', compact('data_penerbit'));
     }
     public function pengarang()
     {
@@ -40,8 +39,7 @@ class AdminController extends Controller
     }
     public function anggota()
     {
-        $data_anggota = Anggota::where('alamat', 'like', '%bandung%')->get();
-        return $data_anggota;
-        return view('admin.anggota');
+        $data_anggota = Anggota::all();
+        return view('admin.anggota', compact('data_anggota'));
     }
 }

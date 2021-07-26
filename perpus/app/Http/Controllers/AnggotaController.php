@@ -14,7 +14,9 @@ class AnggotaController extends Controller
      */
     public function index()
     {
-        //
+        $datas = Anggota::all();
+        $datatables = datatables()->of($datas)->addIndexColumn();
+        return $datatables->make(true);
     }
 
     /**
@@ -35,7 +37,15 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama' => ['required'],
+            'sex' => ['required'],
+            'telp' => ['required'],
+            'alamat' => ['required'],
+            'email' => ['required']
+        ]);
+        Anggota::create($request->all());
+        return back();
     }
 
     /**
@@ -46,7 +56,7 @@ class AnggotaController extends Controller
      */
     public function show(Anggota $anggota)
     {
-        //
+      //
     }
 
     /**
@@ -69,7 +79,15 @@ class AnggotaController extends Controller
      */
     public function update(Request $request, Anggota $anggota)
     {
-        //
+        $this->validate($request, [
+            'nama' => ['required'],
+            'sex' => ['required'],
+            'telp' => ['required'],
+            'alamat' => ['required'],
+            'email' => ['required']
+        ]);
+        $anggota->update($request->all());
+        return back();
     }
 
     /**
@@ -80,6 +98,7 @@ class AnggotaController extends Controller
      */
     public function destroy(Anggota $anggota)
     {
-        //
+        $anggota->delete();
+        return back();
     }
 }

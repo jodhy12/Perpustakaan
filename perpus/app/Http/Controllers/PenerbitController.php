@@ -14,7 +14,9 @@ class PenerbitController extends Controller
      */
     public function index()
     {
-        //
+        $datas = Penerbit::all();
+        $datatables = datatables()->of($datas)->addIndexColumn();
+        return $datatables->make(true);
     }
 
     /**
@@ -35,7 +37,14 @@ class PenerbitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama_penerbit' => ['required'],
+            'email' => ['required'],
+            'telp' => ['required'],
+            'alamat' => ['required']
+        ]);
+        Penerbit::create($request->all());
+        return back();
     }
 
     /**
@@ -69,7 +78,14 @@ class PenerbitController extends Controller
      */
     public function update(Request $request, Penerbit $penerbit)
     {
-        //
+        $this->validate($request, [
+            'nama_penerbit' => ['required'],
+            'email' => ['required'],
+            'telp' => ['required'],
+            'alamat' => ['required']
+        ]);
+        $penerbit->update($request->all());
+        return back();
     }
 
     /**
@@ -80,6 +96,7 @@ class PenerbitController extends Controller
      */
     public function destroy(Penerbit $penerbit)
     {
-        //
+        $penerbit->delete();
+        return back;
     }
 }
