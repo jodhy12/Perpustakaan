@@ -97,6 +97,6 @@ class PenerbitController extends Controller
     public function destroy(Penerbit $penerbit)
     {
         $penerbit->delete();
-        return back;
+        return back();
     }
 }

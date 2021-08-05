@@ -125,6 +125,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="{{ url('buku') }}" class="nav-link {{ request()->is('buku') ? 'active':'' }}">
+                  <i class="nav-icon far fa-circle"></i>
+                  <p>
+                    Buku
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ url('katalog') }}" class="nav-link {{ request()->is('katalog') ? 'active':'' }}">
                   <i class="nav-icon far fa-circle"></i>
                   <p>

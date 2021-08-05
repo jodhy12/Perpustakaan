@@ -42,4 +42,9 @@ class AdminController extends Controller
         $data_anggota = Anggota::all();
         return view('admin.anggota', compact('data_anggota'));
     }
+    public function buku()
+    {
+        $data_buku = Buku::all();
+        return view('admin.buku', compact('data_buku'));
+    }
 }

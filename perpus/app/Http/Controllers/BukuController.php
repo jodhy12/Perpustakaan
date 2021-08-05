@@ -14,7 +14,8 @@ class BukuController extends Controller
      */
     public function index()
     {
-        //
+        $data = Buku::all();
+        return json_encode($data);
     }
 
     /**
@@ -35,7 +36,17 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'isbn' => ['required'],
+            'judul' => ['required'],
+            'id_penerbit' => ['required'],
+            'id_pengarang' => ['required'],
+            'id_katalog' => ['required'],
+            'qty_stok' => ['required'],
+            'harga_pinjam' => ['required']
+        ]);
+        Buku::create($request->all());
+        return back();
     }
 
     /**
@@ -69,7 +80,17 @@ class BukuController extends Controller
      */
     public function update(Request $request, Buku $buku)
     {
-        //
+        $this->validate($request, [
+            'isbn' => ['required'],
+            'judul' => ['required'],
+            'id_penerbit' => ['required'],
+            'id_pengarang' => ['required'],
+            'id_katalog' => ['required'],
+            'qty_stok' => ['required'],
+            'harga_pinjam' => ['required']
+        ]);
+        $buku->update($request->all());
+        return back();
     }
 
     /**
@@ -80,6 +101,7 @@ class BukuController extends Controller
      */
     public function destroy(Buku $buku)
     {
-        //
+        $buku->delete();
+        return back();
     }
 }
