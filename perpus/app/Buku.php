@@ -14,7 +14,8 @@ class Buku extends Model
         'id_pengarang',
         'id_katalog',
         'qty_stok',
-        'harga_pinjam'
+        'harga_pinjam',
+        'nama_penerbit'
 
     ];
     public function penerbit()

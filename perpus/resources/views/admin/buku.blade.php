@@ -16,23 +16,23 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12" v-for='buku in filteredList'>
-                <div class="info-box" v-on:click="ubahData(buku)">
+                <div class="info-box" >
                     <div class="info-box-content">
-                        <span class="info-box-text h3">
+                        <span class="info-box-text h3" v-on:click="ubahData(buku)">
                             @{{ buku.judul }}(@{{ buku.qty_stok }})
                         </span>
-                        <span class="info-box-number">Rp. @{{ formatPrice(buku.harga_pinjam) }}-<small></small></span>   
+                        <span class="info-box-number" v-on:click="ubahData(buku)">Rp. @{{ formatPrice(buku.harga_pinjam) }}-<small></small></span>  
+                        <button v-on:click="hapusData(buku.id)" class="btn btn-danger"><i class="fas fa-trash mr-1"></i>Hapus</button> 
                     </div>
+                    
                 </div>
-                
-                    {{-- <a  @click="hapusData({{ $data_buku->$isbn }})" class='btn btn-sm btn-danger pull-right ml-1 text-bold'><i class="fas fa-trash"></i></a> --}}
             </div>
         </div>
           <!-- Modal -->
   <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
       <div class="modal-content">
-       <form :action="actionUrl" method="post" autocomplete="off" @submit="submitForm($event, data.id)">
+       <form :action="actionUrl" method="post" autocomplete="off">
         <div class="modal-header">
             <h4 class="modal-title" v-if="!editStatus">Tambah Buku</h4>
             <h4 class="modal-title" v-if="editStatus">Edit Buku</h4>
@@ -43,7 +43,6 @@
           <div class="modal-body">
             @csrf
                 <input type="hidden" name="_method" value="PUT" v-if = "editStatus">
-
                 <div class="form-group">
                  <label>ISBN</label>
                  <input type="text" class="form-control" name="isbn" :value="data.isbn" required="">
@@ -54,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <label>Penerbit</label>
-                    <input type="text" class="form-control" name="id_penerbit" :value="data.id_penerbit"  required="">
+                    <input type="text" class="form-control" name="penerbit" :value ="data.penerbit"  required="">
                 </div>
                 <div class="form-group">
                     <label>Pengarang</label>
@@ -76,6 +75,7 @@
            
           <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+           
             <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
 
@@ -131,12 +131,18 @@
                 this.actionUrl="{{ url('data/buku') }}" + '/' + buku.id;
                 $('#modal-default').modal();
             },
-            // hapusData(id){
-            //     this.data = buku
-            //     if(confirm("Are You Sure?")){
-            //         this.actionUrl="{{ url('data/buku') }}"; 
-            //     }
-            // }
+            hapusData(id) {
+            if (confirm("Are You Sure?")) {
+                // $(event.target).parents('tr').remove();
+                axios.post(this.actionUrl + '/' + id, { _method: "DELETE" })
+                // .then(response => {
+                    // this.actionUrl="{{ url('data/buku') }}" + '/' + id;
+                    //  alert('Data '+ id + ' berhasil di hapus');
+                    // location.reload;
+                    
+                    //  });
+                }
+            },
         },
         computed : {
             filteredList() {

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Buku;
+use App\Penerbit;
+use App\Pengarang;
+use App\Katalog;
 use Illuminate\Http\Request;
 
 class BukuController extends Controller
@@ -14,7 +17,7 @@ class BukuController extends Controller
      */
     public function index()
     {
-        $data = Buku::all();
+        $data = Buku::with('penerbit')->with('pengarang')->with('katalog')->get();
         return json_encode($data);
     }
 
@@ -98,6 +101,7 @@ class BukuController extends Controller
      *
      * @param  \App\Buku  $buku
      * @return \Illuminate\Http\Response
+     * 
      */
     public function destroy(Buku $buku)
     {
