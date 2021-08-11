@@ -44,7 +44,10 @@ class AdminController extends Controller
     }
     public function buku()
     {
-        $data_buku = Buku::all();
-        return view('admin.buku', compact('data_buku'));
+        $data['penerbit'] = Penerbit::all();
+        $data['pengarang'] = Pengarang::all();
+        $data['katalog'] = Katalog::all();
+        // $data_buku = Buku::all();
+        return view('admin.buku', compact('data'));
     }
 }

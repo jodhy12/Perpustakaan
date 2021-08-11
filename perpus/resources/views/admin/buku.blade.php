@@ -22,7 +22,7 @@
                             @{{ buku.judul }}(@{{ buku.qty_stok }})
                         </span>
                         <span class="info-box-number" v-on:click="ubahData(buku)">Rp. @{{ formatPrice(buku.harga_pinjam) }}-<small></small></span>  
-                        <button v-on:click="hapusData(buku.id)" class="btn btn-danger"><i class="fas fa-trash mr-1"></i>Hapus</button> 
+                        <button v-on:click="hapusData(buku.id)"  class="btn btn-danger"><i class="fas fa-trash mr-1"></i>Hapus</button> 
                     </div>
                     
                 </div>
@@ -53,16 +53,33 @@
                 </div>
                 <div class="form-group">
                     <label>Penerbit</label>
-                    <input type="text" class="form-control" name="penerbit" :value ="data.penerbit"  required="">
+                    <select name="id_penerbit" id="" class="form-control">
+                        <option value="">-- Pilih Penerbit --</option>
+                            @foreach ($data['penerbit'] as $penerbit)
+                                <option :selected="data.id_penerbit == {{ $penerbit['id'] }} " value = "{{ $penerbit['id'] }}"> {{ $penerbit['nama_penerbit'] }} </option>
+                            @endforeach
+                    </select>
                 </div>
+                
                 <div class="form-group">
                     <label>Pengarang</label>
-                    <input type="text" class="form-control" name="id_pengarang" :value="data.id_pengarang"  required="">
+                    <select name="id_pengarang" id="" class="form-control">
+                        <option value="" >-- Pilih Pengarang --</option>
+                            @foreach ($data['pengarang'] as $pengarang)
+                                <option :selected="data.id_pengarang == {{ $pengarang['id'] }} " value = "{{ $pengarang['id'] }}"> {{ $pengarang['nama_pengarang'] }} </option>
+                            @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Katalog</label>
-                    <input type="text" class="form-control" name="id_katalog" :value="data.id_katalog"  required="">
+                    <select name="id_katalog" id="" class="form-control">
+                        <option value="">-- Pilih Katalog --</option>
+                            @foreach ($data['katalog'] as $katalog)
+                                <option :selected="data.id_katalog == {{ $katalog['id'] }} " value = "{{ $katalog['id'] }}"> {{ $katalog['nama'] }} </option>
+                            @endforeach
+                    </select>
                 </div>
+
                 <div class="form-group">
                     <label>Stok</label>
                     <input type="text" class="form-control" name="qty_stok" :value="data.qty_stok" required="">
@@ -133,14 +150,11 @@
             },
             hapusData(id) {
             if (confirm("Are You Sure?")) {
-                // $(event.target).parents('tr').remove();
+                
                 axios.post(this.actionUrl + '/' + id, { _method: "DELETE" })
-                // .then(response => {
-                    // this.actionUrl="{{ url('data/buku') }}" + '/' + id;
-                    //  alert('Data '+ id + ' berhasil di hapus');
-                    // location.reload;
-                    
-                    //  });
+                .then(response => {
+                    location.reload();
+                     });
                 }
             },
         },

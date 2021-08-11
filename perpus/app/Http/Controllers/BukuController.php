@@ -17,7 +17,10 @@ class BukuController extends Controller
      */
     public function index()
     {
-        $data = Buku::with('penerbit')->with('pengarang')->with('katalog')->get();
+        // $data['penerbit'] = Penerbit::all();
+        // $data['pengarang'] = Pengarang::all();
+        // $data['katalog'] = Katalog::all();
+        $data = Buku::with('penerbit')->get();
         return json_encode($data);
     }
 
