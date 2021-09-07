@@ -1,6 +1,8 @@
 <html>
 <head>
 	<title>Add Katalog</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </head>
 
 <?php
@@ -12,22 +14,22 @@
 ?>
  
 <body>
-	<a href="index.php">Go to Home</a>
+	<a href="index.php" class="btn btn-primary m-1">Go to Home</a>
 	<br/><br/>
  
 	<form action="add.php" method="post" name="form1">
-		<table width="30%" border="0">
+		<table width="30%" border="0" class="table table-striped">
 			<tr> 
-				<td>ID Katalog</td>
+				<td scope="row">ID Katalog</td>
 				<td><input type="text" name="id_katalog"></td>
 			</tr>
 			<tr> 
-				<td>Nama</td>
+				<td scope="row">Nama</td>
 				<td><input type="text" name="nama"></td>
 			</tr>
 			<tr> 
-                <td></td>
-				<td><input type="submit" name="Submit" value="Add"></td>
+                <td scope="row"></td>
+				<td><input type="submit" name="Submit" class="btn btn-primary" value="Add"></td>
 			</tr>
 		</table>
 	</form>

@@ -1,6 +1,8 @@
 <html>
     <head>
         <title>Edit Buku</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     </head>
     <?php
         include_once("connect.php");
@@ -26,25 +28,25 @@
         }
     ?>
     <body>
-        <a href="index.php">Go to Home</a>
+        <a href="index.php" class="btn btn-primary m-1">Go to Home</a>
         <br><br>
         <form action="edit.php?isbn=<?php echo $isbn; ?>" method="post">
-            <table width="25%" border="0">
+            <table width="25%" border="0" class="table table-striped table-dark">
                 <tr>
-                    <td>ISBN</td>
+                    <td scope="row">ISBN</td>
                     <td style="font-size: 11pt;"><?php echo $isbn; ?> </td>
                 </tr>
                 <tr>
-                    <td>Judul</td>
+                    <td scope="row">Judul</td>
                     <!-- karena setiap kita edit, data yang seblum nya kita input sudah ada, jadi valuenya kita simpan -->
                     <td><input type="text" name="judul" value="<?php echo $judul; ?>"></td>
                 </tr>
                 <tr>
-                    <td>Tahun</td>
-                    <td><input type="text" name="tahun" value="<?php echo $judul; ?>"></td>
+                    <td scope="row">Tahun</td>
+                    <td><input type="text" name="tahun" value="<?php echo $tahun; ?>"></td>
                 </tr>
                 <tr>
-                    <td>Penerbit</td>
+                    <td scope="row">Penerbit</td>
                     <td>
                         <select name="id_penerbit">
                             <?php
@@ -56,7 +58,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Pengarang</td>
+                    <td scope="row">Pengarang</td>
                     <td>
                         <select name="id_pengarang">
                             <?php
@@ -68,7 +70,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Katalog</td>
+                    <td scope="row">Katalog</td>
                     <td>
                         <select name="id_katalog">
                             <?php
@@ -80,16 +82,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Qty Stock</td>
+                    <td scope="row">Qty Stock</td>
                     <td><input type="text" name="qty_stok" value="<?php echo $qty_stok; ?>"></td>
                 </tr>
                 <tr>
-                    <td>Harga Pinjam</td>
+                    <td scope="row">Harga Pinjam</td>
                     <td><input type="text" name="harga_pinjam" value="<?php echo $harga_pinjam; ?>"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td><input type="submit" name="update" value="Update"></td>
+                    <td scope="row"></td>
+                    <td><input type="submit" name="update" value="Update" class="btn btn-primary"></td>
                 </tr>
             </table>
         </form>

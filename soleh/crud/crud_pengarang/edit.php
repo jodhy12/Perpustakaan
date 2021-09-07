@@ -1,6 +1,8 @@
 <html>
     <head>
         <title>Edit Pengarang</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     </head>
     <?php
         include_once("../connect.php");
@@ -23,35 +25,35 @@
         }
     ?>
     <body>
-        <a href="index.php">Go to Home</a>
+        <a href="index.php" class="btn btn-primary m-1">Go to Home</a>
         <br><br>
         <form action="edit.php?id_pengarang=<?php echo $id_pengarang; ?>" method="post">
-            <table width="25%" border="0">
+            <table width="25%" border="0" class="table table-striped table-dark">
                 <tr>
-                    <td>ID Pengarang</td>
+                    <td scope="row">ID Pengarang</td>
                     <td style="font-size: 11pt;"><?php echo $id_pengarang; ?> </td>
                 </tr>
                 <tr>
-                    <td>Nama Pengarang</td>
+                    <td scope="row">Nama Pengarang</td>
                     <!-- karena setiap kita edit, data yang seblum nya kita input sudah ada, jadi valuenya kita simpan -->
                     <td><input type="text" name="nama_pengarang" value="<?php echo $nama_pengarang; ?>"></td>
                 </tr>
                 <tr>
-                    <td>Email</td>
+                    <td scope="row">Email</td>
                     <td><input type="email" name="email" value="<?php echo $email; ?>"></td>
                 </tr>
                 <tr>
-                    <td>No. Telp</td>
+                    <td scope="row">No. Telp</td>
                     <td><input type="tel" name="telp" value="<?php echo $telp; ?>"></td>
                 </tr>
                 <tr>
-                    <td>Alamat</td>
+                    <td scope="row">Alamat</td>
                     <td><input type="text" name="alamat" value="<?php echo $alamat; ?>"></td>
                     <!-- <td><textarea name="alamat" value="<?php echo $alamat; ?>" cols="30" rows="10"></textarea></td> -->
                 </tr>
                 <tr>
-                    <td></td>
-                    <td><input type="submit" name="update" value="Update"></td>
+                    <td scope="row"></td>
+                    <td><input type="submit" name="update" class="btn btn-primary" value="Update"></td>
                 </tr>
             </table>
         </form>

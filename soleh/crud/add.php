@@ -1,6 +1,8 @@
 <html>
 <head>
 	<title>Add Buku</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </head>
 
 <?php
@@ -12,25 +14,25 @@
 ?>
  
 <body>
-	<a href="index.php">Go to Home</a>
+	<a href="index.php" class="btn btn-primary m-1">Go to Home</a>
 	<br/><br/>
  
 	<form action="add.php" method="post" name="form1">
-		<table width="25%" border="0">
+		<table width="25%" border="0" class="table table-striped">
 			<tr> 
-				<td>ISBN</td>
+				<td scope="row">ISBN</td>
 				<td><input type="text" name="isbn"></td>
 			</tr>
 			<tr> 
-				<td>Judul</td>
+				<td scope="row">Judul</td>
 				<td><input type="text" name="judul"></td>
 			</tr>
 			<tr> 
-				<td>Tahun</td>
+				<td scope="row">Tahun</td>
 				<td><input type="text" name="tahun"></td>
 			</tr>
 			<tr> 
-				<td>Penerbit</td>
+				<td scope="row">Penerbit</td>
 				<td>
 					<select name="id_penerbit">
 						<?php 
@@ -43,7 +45,7 @@
 				</td>
 			</tr>
 			<tr> 
-				<td>Pengarang</td>
+				<td scope="row">Pengarang</td>
 				<td>
 					<select name="id_pengarang">
 						<?php 
@@ -55,7 +57,7 @@
 				</td>
 			</tr>
 			<tr> 
-				<td>Katalog</td>
+				<td scope="row">Katalog</td>
 				<td>
 					<select name="id_katalog">
 						<?php 
@@ -67,16 +69,16 @@
 				</td>
 			</tr>
 			<tr> 
-				<td>Qty Stok</td>
+				<td scope="row">Qty Stok</td>
 				<td><input type="text" name="qty_stok"></td>
 			</tr>
 			<tr> 
-				<td>Harga Pinjam</td>
+				<td scope="row">Harga Pinjam</td>
 				<td><input type="text" name="harga_pinjam"></td>
 			</tr>
 			<tr> 
 				<td></td>
-				<td><input type="submit" name="Submit" value="Add"></td>
+				<td><input type="submit" name="Submit" value="Add" class="btn btn-primary"></td>
 			</tr>
 		</table>
 	</form>
