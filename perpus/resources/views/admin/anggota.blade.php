@@ -10,7 +10,18 @@
 <component id="controller">
             <div class="card">
                 <div class="card-header">
-                    <a href="#" @click="tambahData()" class='btn btn-sm btn-primary pull-right'>Tambah Anggota</a>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <a href="#" @click="tambahData()" class='btn btn-sm btn-primary pull-right'>Tambah Anggota</a>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" name="sex">
+                                <option value="0">Semua Jenis Kelamin</option>
+                                <option value="P">Perempuan</option>
+                                <option value="L">Laki-laki</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table id=datatable class="table table-striped table-bordered">
@@ -87,15 +98,31 @@
   var actionUrl= '{{ url("data/anggota") }}';
   var columns = [
       {data: 'nama', class: 'text-center',orderable: true},
-      {data: 'sex', class: 'text-center',orderable: true},
-      {data: 'telp', class: 'text-center',orderable: true},
-      {data: 'alamat', class: 'text-center',orderable: true},
-      {data: 'email', class: 'text-center',orderable: true},
+      {data: 'sex', class: 'text-center', orderable: true},
+      {data: 'telp', class: 'text-center', orderable: true},
+      {data: 'alamat', class: 'text-center', orderable: true},
+      {data: 'email', class: 'text-center', orderable: true},
       {render: function(index, row, data, meta){
-      return ` <a href="#" class="btn btn-sm btn-warning" onclick="controller.ubahData(event,${meta.row})">Edit</a><a href="#" class="btn btn-sm btn-danger" onclick="controller.hapusData(event, ${data.id})">Delete</a>`;
-            },orderable: false, class: 'text-center'
-        },
+      return ` 
+            <a href="#" class="btn btn-sm btn-warning" onclick="controller.ubahData(event, ${meta.row})">
+                Edit
+            </a>
+            <a class="btn btn-sm btn-danger" onclick="controller.hapusData(event, ${data.id})">
+                Delete
+            </a>`;
+    }, orderable: false, width: '150px', class: 'text-center'},
   ];
 </script>
 <script src="{{ asset('js/data.js') }}"></script>
+<script type="text/javascript">
+    $('select[name=sex]').on('change', function() {
+        sex = $('select[name=sex]').val();
+
+        if(sex == 0){
+            controller.table.ajax.url(actionUrl).load();
+        } else {
+            controller.table.ajax.url(actionUrl+'?sex='+sex).load();
+        }
+    });
+</script>
 @endpush

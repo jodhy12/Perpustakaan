@@ -54,9 +54,28 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <!-- Navbar Search -->
-      <li class="nav-item mr-2">
-        <a class="dropdown" href="{{ route('logout') }}"
+         <!-- Navbar Search -->
+        <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-danger navbar-badge">{{ get_notifikasi() }}</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">Notification</span>
+          <div class="dropdown-divider"></div>
+          @foreach (get_selisih_hari() as $selisih)
+          <a href="#" class="dropdown-item">
+            
+            <b>{{ $selisih->anggota->nama }}</b> melewati batas waktu <b>{{ $selisih->selisih }}</b> hari 
+           
+          </a>
+          @endforeach
+          <div class="dropdown-divider"></div>
+          <a href="{{ url('peminjaman') }}" class="dropdown-item dropdown-footer">Lihat Semua</a>
+        </div>
+      </li>
+      <li class="nav-item mr-2 ">
+        <a class="nav-link dropdown" href="{{ route('logout') }}"
             onClick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
@@ -113,6 +132,24 @@
               </p>
             </a>
           </li>
+          {{-- Menu Peminjaman --}}
+          <li class="nav-item">
+            <a href="{{ url('peminjaman') }}" class="nav-link {{ request()->is('peminjaman') ? 'active':'' }}">
+              <i class="nav-icon fas fa-exchange-alt"></i>
+              <p>
+                Peminjaman
+              </p>
+            </a>
+          </li>
+          {{-- Menu Buku --}}
+          <li class="nav-item">
+            <a href="{{ url('buku') }}" class="nav-link {{ request()->is('buku') ? 'active':'' }}">
+              <i class="nav-icon fas fa-journal-whills"></i>
+              <p>
+                Buku
+              </p>
+            </a>
+          </li>
 
           {{-- data master collaps --}}
           <li class="nav-item menu-open">
@@ -124,14 +161,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url('buku') }}" class="nav-link {{ request()->is('buku') ? 'active':'' }}">
-                  <i class="nav-icon far fa-circle"></i>
-                  <p>
-                    Buku
-                  </p>
-                </a>
-              </li>
               <li class="nav-item">
                 <a href="{{ url('katalog') }}" class="nav-link {{ request()->is('katalog') ? 'active':'' }}">
                   <i class="nav-icon far fa-circle"></i>

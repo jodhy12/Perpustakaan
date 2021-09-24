@@ -15,4 +15,8 @@ class Peminjaman extends Model
     {
         return $this->belongsTo('App\Anggota', 'id_anggota');
     }
+    public function detail()
+    {
+        return $this->hasOne('App\DetailPeminjaman','id_peminjaman');
+    }
 }

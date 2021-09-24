@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Peminjaman;
+use App\DetailPeminjaman;
 use Illuminate\Http\Request;
 
 class PeminjamanController extends Controller
@@ -12,9 +14,28 @@ class PeminjamanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->status) {
+            $datas = Peminjaman::select('*', DB::raw("DATEDIFF( tgl_kembali ,tgl_pinjam ) as lama_pinjam"))->with('anggota')->where('status', $request->status)->get();
+        } else {
+            $datas = Peminjaman::select('*', DB::raw("DATEDIFF( tgl_kembali ,tgl_pinjam ) as lama_pinjam"))->with('anggota')->get();
+        }
+        foreach ($datas as $data) {
+            $data->listbuku = DB::table('detail_peminjaman')
+                ->select('detail_peminjaman.id', 'judul', 'buku.id as id_buku', 'id_peminjaman')
+                ->join('peminjaman', 'peminjaman.id', '=', 'detail_peminjaman.id_peminjaman')
+                ->join('buku', 'buku.id', '=', 'detail_peminjaman.id_buku')
+                ->where('detail_peminjaman.id_peminjaman', '=', $data->id)->get();
+            foreach ($data->listbuku as $buku) {
+                $buku->dipinjam = DB::table('detail_peminjaman')
+                    ->where('id_buku', '=', $buku->id_buku)
+                    ->where('detail_peminjaman.id_peminjaman', '=', $buku->id_peminjaman)
+                    ->get();
+            }
+        }
+        $datatables = datatables()->of($datas)->addIndexColumn();
+        return $datatables->make(true);
     }
 
     /**

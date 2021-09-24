@@ -10,6 +10,8 @@ use App\Penerbit;
 use App\Pengarang;
 use App\Anggota;
 use App\Peminjaman;
+use Carbon\Carbon;
+
 use PHPUnit\Framework\Constraint\Count;
 
 class AdminController extends Controller
@@ -44,14 +46,18 @@ class AdminController extends Controller
         // Untuk Pie Diagram
         $data_pie = Buku::select(DB::raw("COUNT(id_katalog) as total"))->groupBy('id_katalog')->orderBy('id_katalog')->pluck('total');
         $label_pie = Katalog::orderBy('katalog.nama', 'asc')->join('buku', 'buku.id_katalog', '=', 'katalog.id')->groupBy('nama')->pluck('nama');
-        // return $label_pie;
 
-        return view('admin.dashboard', compact('total_buku', 'total_anggota', 'total_penerbit', 'total_peminjaman', 'data_donut', 'label_donut', 'data_bar','data_pie','label_pie'));
+        return view('admin.dashboard', compact('total_buku', 'total_anggota', 'total_penerbit', 'total_peminjaman', 'data_donut', 'label_donut', 'data_bar', 'data_pie', 'label_pie', 'notifikasi'));
     }
     public function katalog()
     {
         $data_katalog = Katalog::all();
         return view('admin.katalog.katalog', compact('data_katalog'));
+    }
+    public function peminjaman()
+    {
+        $data_peminjaman = Peminjaman::all();
+        return view('admin.peminjaman', compact('data_peminjaman'));
     }
 
     public function penerbit()

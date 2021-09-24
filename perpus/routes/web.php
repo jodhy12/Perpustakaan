@@ -19,9 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'AdminController@index')->name('home');
+Route::get('/home', 'AdminController@dashboard')->name('home');
 Route::get('/dashboard', 'AdminController@dashboard');
 Route::get('/katalog', 'AdminController@katalog');
+Route::get('/peminjaman', 'AdminController@peminjaman');
 Route::get('/buku', 'AdminController@buku');
 Route::get('/penerbit', 'AdminController@penerbit');
 Route::get('/pengarang', 'AdminController@pengarang');
@@ -33,4 +34,5 @@ Route::group(['prefix' => 'data'], function () {
     Route::resource('penerbit', 'PenerbitController');
     Route::resource('anggota', 'AnggotaController');
     Route::resource('buku', 'BukuController');
+    Route::resource('peminjaman', 'PeminjamanController');
 });

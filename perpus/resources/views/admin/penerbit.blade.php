@@ -78,10 +78,10 @@
 <script type="text/javascript">
   var actionUrl= '{{ url("data/penerbit") }}';
   var columns = [
-      {data: 'nama_penerbit', class: 'text-center',orderable: true},
-      {data: 'email', class: 'text-center',orderable: true},
-      {data: 'telp', class: 'text-center',orderable: true},
-      {data: 'alamat', class: 'text-center',orderable: true},
+      {data: 'nama_penerbit', class: 'text-center', orderable: true},
+      {data: 'email', class: 'text-center', orderable: true},
+      {data: 'telp', class: 'text-center', orderable: true},
+      {data: 'alamat', class: 'text-center', orderable: true},
       {render: function(index, row, data, meta){
       return ` <a href="#" class="btn btn-sm btn-warning" onclick="controller.ubahData(event,${meta.row})">Edit</a><a href="#" class="btn btn-sm btn-danger" onclick="controller.hapusData(event, ${data.id})">Delete</a>`;
             },orderable: false, class: 'text-center'

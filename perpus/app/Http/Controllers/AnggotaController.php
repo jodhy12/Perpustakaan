@@ -12,9 +12,13 @@ class AnggotaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $datas = Anggota::all();
+        if ($request->sex) {
+            $datas = Anggota::where('sex', $request->sex)->get();
+        } else {
+            $datas = Anggota::all();
+        }
         $datatables = datatables()->of($datas)->addIndexColumn();
         return $datatables->make(true);
     }
@@ -56,7 +60,7 @@ class AnggotaController extends Controller
      */
     public function show(Anggota $anggota)
     {
-      //
+        //
     }
 
     /**
