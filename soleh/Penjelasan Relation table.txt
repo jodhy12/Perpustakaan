@@ -1,0 +1,18 @@
+Tabel Obat - Tabel Detail Obat ( One To One )
+Alasan : Karena Setiap Obat di tabel Obat akan mempunyai relasi 1 data ke tabel detail_obat.
+
+Tabel Obat - Tabel Penjulan Detail ( One To Many )
+Alsan : Karena Setiap Obat Memiliki Id_Obat yang berbeda-beda dan bisa lebih dari 1.
+
+Tabel Penjulan - Tabel Penjualan Detail ( One To Many )
+Alasan : Karenan Setiap Pelaggan bisa memesan lebih dari 1 Obat/Item dalam 1x Transaksi.
+
+Tabel Pelanggan - Tabel Penjualan ( One To Many )
+Alasan : Karena setiap 1 Pelangan mempunyai lebih dari 1 Transaksi.
+
+Tabel Pelanggan - Tabel Penjualan - Tabel Penjualan Detail ( Many to Many )
+Asalan : Karena setiap pelanggan membunyai lebih dari 1 Transaksi dan Setiap Transaksi mempunyai 
+lebih dari 1 jumlah obat yang di beli pada tabel penjulan detail jadi didalam Tabel penjualan pasti harus memiliki relasi 
+ke tabel pelanggan, dan setiap penjualan mempuyai relasi kedalam tabel penjualan detail.
+
+

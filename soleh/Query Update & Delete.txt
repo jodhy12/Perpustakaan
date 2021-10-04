@@ -1,0 +1,11 @@
+DELETE FROM pelanggan WHERE id=10; --> Digunakan untuk menghapus record data dimana yang memilki id=10;
+UPDATE pelanggan SET nama_pelanggan="nur muhamad" WHERE id='2'; --> Digunakan untuk melakukan update recode data di bagian nama_pelangan
+menjadi nur muhamad dimana kolom tersebut memilki id=2
+ALTER TABLE pelanggan MODIFY nama_pelanggan VARCHAR(100) --> Digunakan untuk mengubah type data/atribut dari sebuah kolom nama_pelanggan menjadi VARCHAR (100)
+ALTER TABLE pelanggan CHANGE nama_pelanggan nama_lengkap VARCHAR (100) --> Digunakan untuk merubah nama kolom nama pelanggan menjadi nama_lengkap tanpa merubah type datanya.
+ALTER TABLE pelanggan CHANGE nama_lengkap nama_pelanggan VARCHAR(50) --> Digunakan untuk merubah nama kolom nama_lengkap menjadi nama_pelanggan dengan type data/atribut VARCHAR (50);
+ALTER TABLE pelanggan ADD domisili TEXT NOT NULL --> Digunakan untuk menambahkan nama kolom baru dan juga typedata/atribut dari nama kolom domisili.
+ALTER TABLE pelanggan DROP COLUMN domisili --> Digunakan untuk menghapus kolom domisili.
+MariaDB [apotek]> insert into pelanggan values (1, "Kukuh Apriliant", 24,"Jalan suka menanti Rt:08/Rw:011 Kel.Rawa Buaya Kec","Laki-Laki")
+    -> on duplicate key update nama_pelanggan="kukuh";
+Query OK, 2 rows affected (0.002 sec) --> Jika terdeteksi terjadi data yang Duplicate Primary Key / berulang agar kolom nama_pelanggan di ubah menjadi kukuh.
