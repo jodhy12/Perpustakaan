@@ -1,0 +1,5 @@
+1. UPDATE obat SET harga = 3000 WHERE nama_obat = "bodrex"
+2. UPDATE pemasok SET nama_pemasok = "konimex" WHERE id = 5
+3. UPDATE pemasok SET alamat = "solo" WHERE id = 5
+4. DELETE from obat where id = 5
+5. DELETE from transaksi WHERE id = "10"
