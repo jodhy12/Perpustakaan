@@ -47,7 +47,7 @@ class AdminController extends Controller
         $data_pie = Buku::select(DB::raw("COUNT(id_katalog) as total"))->groupBy('id_katalog')->orderBy('id_katalog')->pluck('total');
         $label_pie = Katalog::orderBy('katalog.nama', 'asc')->join('buku', 'buku.id_katalog', '=', 'katalog.id')->groupBy('nama')->pluck('nama');
 
-        return view('admin.dashboard', compact('total_buku', 'total_anggota', 'total_penerbit', 'total_peminjaman', 'data_donut', 'label_donut', 'data_bar', 'data_pie', 'label_pie', 'notifikasi'));
+        return view('admin.dashboard', compact('total_buku', 'total_anggota', 'total_penerbit', 'total_peminjaman', 'data_donut', 'label_donut', 'data_bar', 'data_pie', 'label_pie'));
     }
     public function katalog()
     {
