@@ -57,7 +57,9 @@ class AdminController extends Controller
     public function peminjaman()
     {
         $data_peminjaman = Peminjaman::all();
-        return view('admin.peminjaman', compact('data_peminjaman'));
+        $data['anggota'] = Anggota::all();
+        $databuku = Buku::where('qty_stok', '>', 0)->get();
+        return view('admin.peminjaman', compact('data_peminjaman', 'data', 'databuku'));
     }
 
     public function penerbit()
