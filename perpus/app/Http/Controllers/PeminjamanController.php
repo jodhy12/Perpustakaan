@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Peminjaman;
 use App\DetailPeminjaman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Blade;
 
 class PeminjamanController extends Controller
 {
@@ -16,7 +17,6 @@ class PeminjamanController extends Controller
      */
     public function index(Request $request)
     {
-       
         if ($request->status) {
             $datas = Peminjaman::select('*', DB::raw("DATEDIFF( tgl_kembali ,tgl_pinjam ) as lama_pinjam"))->with('anggota')->where('status', $request->status)->get();
         } else {
@@ -64,6 +64,8 @@ class PeminjamanController extends Controller
 
         $datatables = datatables()->of($datas)->addIndexColumn();
         return $datatables->make(true);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

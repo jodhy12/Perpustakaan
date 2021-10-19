@@ -18,3 +18,4 @@ function get_notifikasi()
 {
     return Count(get_selisih_hari());
 }
+

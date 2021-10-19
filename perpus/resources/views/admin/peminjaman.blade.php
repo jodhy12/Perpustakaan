@@ -163,20 +163,23 @@
       {data: 'tgl_kembali', class: 'text-center', orderable: true},
       {data: 'anggota.nama', class: 'text-center', orderable: true},
       {data: 'lama_pinjam', class: 'text-center',orderable: true},
-      {data: 'lama_pinjam', class: 'text-center',orderable: true},
-      {data: 'lama_pinjam', class: 'text-center', orderable: true},
-      {data: 'status', class: 'text-center', orderable: true},
       {render: function(index, row, data, meta){
-      return ` 
-      <a href="#" class="btn btn-sm btn-warning" onclick="controller.ubahData(event,${meta.row})">
-        Edit
-      </a>
-      <a href="#" class="btn btn-sm btn-success" onclick="controller.ubahData(event,${meta.row})">
-        Detail
-      </a> 
-      <a href="#" class="btn btn-sm btn-danger" onclick="controller.hapusData(event, ${data.id})">
-        Delete
-      </a>`;
+      return data.grandtotal[0]['totalbuku'];
+            },orderable: false, class: 'text-center'
+        },
+      {render: function(index, row, data, meta){
+      return data.grandtotal[0]['totalharga'];
+            },orderable: false, class: 'text-center'
+        },
+      {render: function(index, row, data, meta){
+      return data.status == 1 ? "Dipinjam" : "Dikembalikan" ;
+            },orderable: false, class: 'text-center'
+        },
+    //   {data: 'status', class: 'text-center', orderable: true},
+      {render: function(index, row, data, meta){
+      return ` <a href="#" class="btn btn-sm btn-warning" onclick="controller.ubahData(event,${meta.row})">Edit</a>
+      <a href="#" class="btn btn-sm btn-success" onclick="controller.ubahData(event,${meta.row})">Detail</a> 
+      <a href="#" class="btn btn-sm btn-danger" onclick="controller.hapusData(event, ${data.id})">Delete</a>`;
             },orderable: false, class: 'text-center'
         },
   ];
