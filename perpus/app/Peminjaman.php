@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Peminjaman extends Model
 {
     protected $table = 'peminjaman';
+    protected $fillable = [
+        'tglpinjam',
+        'tglkembali',
+    ];
+
+
     public function buku()
     {
         return $this->belongsToMany('App\Buku', 'detail_peminjaman', 'id_peminjaman', 'id_buku');

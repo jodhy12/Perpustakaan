@@ -9,6 +9,11 @@
 {{-- Radio --}}
 <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
 
+{{-- Link Datatables --}}
+<link rel="stylesheet" href="{{ asset('plugins\datatables-bs4\css\dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins\datatables-responsive\css\responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins\datatables-buttons\css\buttons.bootstrap4.min.css') }}">
+
 @endpush
 @section('content')
     <component id="controller">
@@ -119,13 +124,13 @@
                                 <div class="col-md-9">
                                     <div class="form-group clearfix">
                                         <div class="icheck-primary d-inline">
-                                          <input type="radio" name="r2" checked id="radioDanger1">
+                                          <input type="radio" name="r2" value='1' id="radioDanger1">
                                           <label for="radioDanger1">
                                               Masih Dipinjam
                                           </label>
                                         </div>
                                         <div class="icheck-primary d-inline">
-                                          <input type="radio" name="r2" checked id="radioDanger2">
+                                          <input type="radio" value='2' name="r2" id="radioDanger2">
                                           <label for="radioDanger2">
                                               Sudah Dikembalikan
                                           </label>
@@ -153,7 +158,6 @@
 <script src="{{ asset('plugins\datatables-bs4\js\dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('plugins\datatables-responsive\js\dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('plugins\datatables-responsive\js\responsive.bootstrap4.min.js') }}"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8=" crossorigin="anonymous"></script> --}}
 {{-- Data Picker --}}
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -162,25 +166,26 @@
       {data: 'tgl_pinjam', class: 'text-center', orderable: true},
       {data: 'tgl_kembali', class: 'text-center', orderable: true},
       {data: 'anggota.nama', class: 'text-center', orderable: true},
-      {data: 'lama_pinjam', class: 'text-center',orderable: true},
+      {data: 'lama_pinjam', class: 'text-center', orderable: true},
       {render: function(index, row, data, meta){
       return data.grandtotal[0]['totalbuku'];
-            },orderable: false, class: 'text-center'
+    //   
+            }, orderable: false, class: 'text-center'
         },
       {render: function(index, row, data, meta){
       return data.grandtotal[0]['totalharga'];
-            },orderable: false, class: 'text-center'
+            }, orderable: false, class: 'text-center'
         },
       {render: function(index, row, data, meta){
       return data.status == 1 ? "Dipinjam" : "Dikembalikan" ;
-            },orderable: false, class: 'text-center'
+            }, orderable: false, class: 'text-center'
         },
     //   {data: 'status', class: 'text-center', orderable: true},
       {render: function(index, row, data, meta){
       return ` <a href="#" class="btn btn-sm btn-warning" onclick="controller.ubahData(event,${meta.row})">Edit</a>
       <a href="#" class="btn btn-sm btn-success" onclick="controller.ubahData(event,${meta.row})">Detail</a> 
       <a href="#" class="btn btn-sm btn-danger" onclick="controller.hapusData(event, ${data.id})">Delete</a>`;
-            },orderable: false, class: 'text-center'
+            }, orderable: false, class: 'text-center'
         },
   ];
 </script>
@@ -198,9 +203,9 @@ $('select[name=status]').on('change', function() {
 
 //   datepicker
 $( function() {
-    $( "#tanggalfilter" ).datepicker({ format: 'dd/mm/yyyy' });
-    $( "#tanggalpinjam" ).datepicker({ format: 'dd/mm/yyyy' });
-    $( "#tanggalkembali" ).datepicker({ format: 'dd/mm/yyyy' });
+    $( "#tanggalfilter" ).datepicker();
+    $( "#tanggalpinjam" ).datepicker();
+    $( "#tanggalkembali" ).datepicker();
   } );
   //Select 2
   $( function () {

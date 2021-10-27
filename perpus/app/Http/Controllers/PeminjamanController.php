@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Peminjaman;
 use App\DetailPeminjaman;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Blade;
+
 
 class PeminjamanController extends Controller
 {
@@ -84,7 +84,14 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request , [
+            'tglpinjam'=>'required',
+            'tglkembali'=>'required',
+        
+        ]);
+        
+        // Peminjaman::create($request->all());
+        return back();
     }
 
     /**
