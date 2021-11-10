@@ -8,8 +8,10 @@ class Peminjaman extends Model
 {
     protected $table = 'peminjaman';
     protected $fillable = [
-        'tglpinjam',
-        'tglkembali',
+        'id_anggota',
+        'tgl_pinjam',
+        'tgl_kembali',
+        'status'
     ];
 
 

@@ -77,7 +77,7 @@
                                     <label>Anggota</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <select name="anggota" id="" class="form-control">
+                                    <select name="id_anggota" class="form-control">
                                         <option value="">-- Anggota --</option>
                                             @foreach ($data['anggota'] as $anggota)
                                                 <option :selected="datas.id_anggota == {{ $anggota['id'] }} " value = "{{ $anggota['id'] }}"> {{ $anggota['nama'] }} </option>
@@ -92,13 +92,13 @@
                                     <label>Tanggal</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" id="tanggalpinjam" name="tglpinjam"  required="" placeholder="Pinjam">
+                                    <input type="text" class="form-control" id="tanggalpinjam" name="tgl_pinjam"  required="" placeholder="Pinjam">
                                 </div>
                                 <div class="col-md-1">
                                     -
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" id="tanggalkembali" name="tglkembali"    required="" placeholder="Kembali">
+                                    <input type="text" class="form-control" id="tanggalkembali" name="tgl_kembali"    required="" placeholder="Kembali">
                                 </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                                 <div class="col-md-9">
                                     <select class="form-control select2" multiple="multiple" name="buku[]">
                                         @foreach ( $databuku as $buku)
-                                        <option> {{ $buku['judul'] }} </option>
+                                        <option value = {{ $buku['id']}} > {{ $buku['judul'] }} </option>
                                         @endforeach
                                 </select>
                                 </div>    
@@ -124,13 +124,13 @@
                                 <div class="col-md-9">
                                     <div class="form-group clearfix">
                                         <div class="icheck-primary d-inline">
-                                          <input type="radio" name="r2" value='1' id="radioDanger1">
+                                          <input type="radio" name="status" value=1 id="radioDanger1">
                                           <label for="radioDanger1">
                                               Masih Dipinjam
                                           </label>
                                         </div>
                                         <div class="icheck-primary d-inline">
-                                          <input type="radio" value='2' name="r2" id="radioDanger2">
+                                          <input type="radio" value=2 name="status" id="radioDanger2">
                                           <label for="radioDanger2">
                                               Sudah Dikembalikan
                                           </label>
@@ -168,12 +168,11 @@
       {data: 'anggota.nama', class: 'text-center', orderable: true},
       {data: 'lama_pinjam', class: 'text-center', orderable: true},
       {render: function(index, row, data, meta){
-      return data.grandtotal[0]['totalbuku'];
-    //   
+      return data.grandtotal[0]['totalbuku']; 
             }, orderable: false, class: 'text-center'
         },
       {render: function(index, row, data, meta){
-      return data.grandtotal[0]['totalharga'];
+      return data.grandtotal[0]['totalharga'] ;
             }, orderable: false, class: 'text-center'
         },
       {render: function(index, row, data, meta){
@@ -203,9 +202,9 @@ $('select[name=status]').on('change', function() {
 
 //   datepicker
 $( function() {
-    $( "#tanggalfilter" ).datepicker();
-    $( "#tanggalpinjam" ).datepicker();
-    $( "#tanggalkembali" ).datepicker();
+    $( "#tanggalfilter" ).datepicker({format:"yyyy-mm-dd"});
+    $( "#tanggalpinjam" ).datepicker({format:"yyyy-mm-dd"});
+    $( "#tanggalkembali" ).datepicker({format:"yyyy-mm-dd"});
   } );
   //Select 2
   $( function () {

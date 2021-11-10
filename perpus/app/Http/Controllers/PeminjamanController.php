@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Peminjaman;
 use App\DetailPeminjaman;
+use App\Buku;
 use Illuminate\Http\Request;
-
 
 class PeminjamanController extends Controller
 {
@@ -57,7 +57,9 @@ class PeminjamanController extends Controller
                 // ->where('id_buku', '=', $total->id_buku)
                 ->where('detail_peminjaman.id_peminjaman', '=', $total->id)
                 ->get();
+                // $total->total_bayar = $total->grandTotal[0]['total_harga'];   
         }
+        
 
 
 
@@ -85,12 +87,33 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request , [
-            'tglpinjam'=>'required',
-            'tglkembali'=>'required',
+            'id_anggota'=>'required',
+            'tgl_pinjam'=>'required',
+            'tgl_kembali'=>'required',
+            // 'status'=>'required'
         
         ]);
         
-        // Peminjaman::create($request->all());
+        $datapinjam = Peminjaman::create($request->all());
+
+        $bukus = $request->buku;
+        $simpan_buku = [];
+
+        foreach($bukus as $key => $value){
+            $simpan_buku[] = [
+                'id_peminjaman' => $datapinjam->id ,
+                'id_buku' => $value,
+                'qty'=> 1
+
+            ];
+
+            $stok_buku = Buku::find($value);
+            $stok_update = $stok_buku->qty_stok - 1 ;
+            $stok_buku->update(['qty_stok' => $stok_update]);
+
+
+        }
+        DetailPeminjaman::insert($simpan_buku);
         return back();
     }
 
@@ -125,7 +148,40 @@ class PeminjamanController extends Controller
      */
     public function update(Request $request, Peminjaman $peminjaman)
     {
-        //
+        $this->validate($request , [
+            'id_anggota'=>'required',
+            'tgl_pinjam'=>'required',
+            'tgl_kembali'=>'required',
+            // 'status'=>'required'
+        
+        ]);
+
+        $peminjaman->id_anggota = $request->id_anggota;
+        $peminjaman->tgl_pinjam = $request->tgl_pinjam;
+        $peminjaman->tgl_kembali = $request->tgl_kembali;
+        $peminjaman->status = $request->status;
+        $peminjaman->save();
+
+
+        DetailPeminjaman::where('id_peminjaman', $peminjaman->id)->delete();
+
+        foreach ($request->buku as $value){
+            $detail = new DetailPeminjaman;
+            $detail->id_peminjaman = $peminjaman->id;
+            $detail->id_buku = $peminjaman->$value;
+            $detail->qty = 1;
+            $detail->save();
+
+        // status dikembalika
+        if ($request->status == 1) {
+            $stok_buku = Buku::find($value);
+            $stok_update = $stok_buku->qty_stok + 1 ;
+            $stok_buku->update(['qty_stok' => $stok_update]);
+        }
+
+
+     }
+
     }
 
     /**

@@ -19,3 +19,8 @@ function get_notifikasi()
     return Count(get_selisih_hari());
 }
 
+function rupiah($rp)
+{
+    return 'Rp. ' . number_format($rp, 0, '', '.');
+    
+}
