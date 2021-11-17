@@ -17,47 +17,34 @@ class PeminjamanController extends Controller
      */
     public function index(Request $request)
     {
+        $datas = Peminjaman::select('*', DB::raw("DATEDIFF( tgl_kembali ,tgl_pinjam ) as lama_pinjam"))->with('anggota');
         if ($request->status) {
-            $datas = Peminjaman::select('*', DB::raw("DATEDIFF( tgl_kembali ,tgl_pinjam ) as lama_pinjam"))->with('anggota')->where('status', $request->status)->get();
-        } else {
-            $datas = Peminjaman::select('*', DB::raw("DATEDIFF( tgl_kembali ,tgl_pinjam ) as lama_pinjam"))->with('anggota')->get();
+            $datas = $datas->where('status', $request->status);
+        } 
+        if($request->tgl_pinjam){
+            $tgl_pinjam = date('Y-m-d',strtotime($request->tgl_pinjam));
+            $datas = $datas->where('tgl_pinjam', $tgl_pinjam);
         }
+        $datas = $datas->get();
         foreach ($datas as $data) {
-            $data->listbuku = DB::table('detail_peminjaman')
-                ->select('detail_peminjaman.id', 'judul', 'buku.id as id_buku', 'harga_pinjam', 'qty', 'id_peminjaman')
-                ->join('peminjaman', 'peminjaman.id', '=', 'detail_peminjaman.id_peminjaman')
-                ->join('buku', 'buku.id', '=', 'detail_peminjaman.id_buku')
-                ->where('detail_peminjaman.id_peminjaman', '=', $data->id)
-                ->get();
-
-            foreach ($data->listbuku as $buku) {
-                $buku->dipinjam = DB::table('detail_peminjaman')
-                    // ->select(DB::raw("SUM(qty*harga_pinjam)as subtotal"))
-                    // ->join('peminjaman', 'peminjaman.id', '=', 'detail_peminjaman.id_peminjaman')
-                    // ->join('buku', 'buku.id', '=', 'detail_peminjaman.id_buku')
-                    ->where('id_buku', '=', $buku->id_buku)
-                    ->where('detail_peminjaman.id_peminjaman', '=', $buku->id_peminjaman)
-                    ->get();
+            $data->tgl_pinjam = date('d-m-Y',strtotime($data->tgl_pinjam));
+            $data->tgl_kembali = date('d-m-Y',strtotime($data->tgl_kembali));
+            $data->list_buku = Buku::select('id','judul')->get();
+            $data->bukudipinjam = DetailPeminjaman::where('id_peminjaman', $data->id)->pluck('id_buku');
+            foreach ($data->list_buku as $buku){
+                $buku->dipinjam = in_array( $buku->id , $data->bukudipinjam->toArray());
             }
-            // foreach ($data->listbuku as $subtotal) {
-            //     $subtotal->subtotal = DB::table('detail_peminjaman')
-            //         ->select(DB::raw("SUM(qty*harga_pinjam)as subtotal"))
-            //         ->join('peminjaman', 'peminjaman.id', '=', 'detail_peminjaman.id_peminjaman')
-            //         ->join('buku', 'buku.id', '=', 'detail_peminjaman.id_buku')
-            //         ->where('id_buku', '=', $subtotal->id_buku)
-            //         ->where('detail_peminjaman.id_peminjaman', '=', $subtotal->id_peminjaman)
-            //         ->get();
-            // }
+            $data->nama_anggota = $data->anggota->nama;
+           
         }
         foreach ($datas as $total) {
             $total->grandtotal = DB::table('detail_peminjaman')
                 ->select(DB::raw("SUM(qty)as totalbuku"), DB::raw("SUM(qty*harga_pinjam)as totalharga"))
                 ->join('peminjaman', 'peminjaman.id', '=', 'detail_peminjaman.id_peminjaman')
                 ->join('buku', 'buku.id', '=', 'detail_peminjaman.id_buku')
-                // ->where('id_buku', '=', $total->id_buku)
                 ->where('detail_peminjaman.id_peminjaman', '=', $total->id)
                 ->get();
-                // $total->total_bayar = $total->grandTotal[0]['total_harga'];   
+                $total->totalbayar = 'Rp.'.number_format($total->grandtotal[0]->totalharga);   
         }
         
 
@@ -94,14 +81,20 @@ class PeminjamanController extends Controller
         
         ]);
         
-        $datapinjam = Peminjaman::create($request->all());
-
+        // $datapinjam = Peminjaman::create($request->all());
+        $peminjaman = new Peminjaman;
+        $peminjaman->id_anggota = $request->id_anggota;
+        $peminjaman->tgl_pinjam = date('Y-m-d', strtotime($request->tgl_pinjam));
+        $peminjaman->tgl_kembali = date('Y-m-d', strtotime($request->tgl_kembali));
+        $peminjaman->status = $request->status;
+        $peminjaman->save();
+        
         $bukus = $request->buku;
         $simpan_buku = [];
 
         foreach($bukus as $key => $value){
             $simpan_buku[] = [
-                'id_peminjaman' => $datapinjam->id ,
+                'id_peminjaman' => $peminjaman->id ,
                 'id_buku' => $value,
                 'qty'=> 1
 
@@ -156,24 +149,36 @@ class PeminjamanController extends Controller
         
         ]);
 
+        
         $peminjaman->id_anggota = $request->id_anggota;
-        $peminjaman->tgl_pinjam = $request->tgl_pinjam;
-        $peminjaman->tgl_kembali = $request->tgl_kembali;
+        $peminjaman->tgl_pinjam = date('Y-m-d', strtotime($request->tgl_pinjam));
+        $peminjaman->tgl_kembali = date('Y-m-d', strtotime($request->tgl_kembali));
         $peminjaman->status = $request->status;
         $peminjaman->save();
+       
 
+        $bukulama = DetailPeminjaman::where('id_peminjaman', $peminjaman->id)->get();
+        foreach ($bukulama as $lama){
+            $lama->status = in_array($lama->id_buku , $request->buku );
+            if ($lama->status == false){
+                $stok_buku = Buku::find($lama->id_buku);
+                $stok_update = $stok_buku->qty_stok + 1 ;
+                $stok_buku->update(['qty_stok' => $stok_update]);
+
+            }
+        }
 
         DetailPeminjaman::where('id_peminjaman', $peminjaman->id)->delete();
 
         foreach ($request->buku as $value){
             $detail = new DetailPeminjaman;
             $detail->id_peminjaman = $peminjaman->id;
-            $detail->id_buku = $peminjaman->$value;
+            $detail->id_buku = $value;
             $detail->qty = 1;
             $detail->save();
 
-        // status dikembalika
-        if ($request->status == 1) {
+        // status dikembalikan
+        if ($request->status == 2) {
             $stok_buku = Buku::find($value);
             $stok_update = $stok_buku->qty_stok + 1 ;
             $stok_buku->update(['qty_stok' => $stok_update]);
@@ -192,6 +197,7 @@ class PeminjamanController extends Controller
      */
     public function destroy(Peminjaman $peminjaman)
     {
-        //
+        DetailPeminjaman::where('id_peminjaman', $peminjaman->id)->delete();
+        $peminjaman->delete();
     }
 }

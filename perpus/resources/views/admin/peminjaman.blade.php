@@ -16,6 +16,9 @@
 
 @endpush
 @section('content')
+
+{{-- @role('petugas') --}}
+    
     <component id="controller">
         <div class="card">
             <div class="card-header">
@@ -80,7 +83,7 @@
                                     <select name="id_anggota" class="form-control">
                                         <option value="">-- Anggota --</option>
                                             @foreach ($data['anggota'] as $anggota)
-                                                <option :selected="datas.id_anggota == {{ $anggota['id'] }} " value = "{{ $anggota['id'] }}"> {{ $anggota['nama'] }} </option>
+                                                <option :selected="data.id_anggota == {{ $anggota['id'] }} " value = "{{ $anggota['id'] }}"> {{ $anggota['nama'] }} </option>
                                             @endforeach
                                     </select>
                                 </div>
@@ -92,13 +95,13 @@
                                     <label>Tanggal</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" id="tanggalpinjam" name="tgl_pinjam"  required="" placeholder="Pinjam">
+                                    <input type="text" class="form-control" :value="data.tgl_pinjam" id="tanggalpinjam" name="tgl_pinjam"  required="" placeholder="Pinjam">
                                 </div>
                                 <div class="col-md-1">
                                     -
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" id="tanggalkembali" name="tgl_kembali"    required="" placeholder="Kembali">
+                                    <input type="text" class="form-control" :value="data.tgl_kembali" id="tanggalkembali" name="tgl_kembali"    required="" placeholder="Kembali">
                                 </div>
                             </div>
                         </div>
@@ -108,9 +111,9 @@
                                     <label>Buku</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <select class="form-control select2" multiple="multiple" name="buku[]">
+                                    <select class="form-control select2" multiple="multiple" name="buku[]" id="selectbuku">
                                         @foreach ( $databuku as $buku)
-                                        <option value = {{ $buku['id']}} > {{ $buku['judul'] }} </option>
+                                        <option :value="{{ $buku['id']}}" > {{ $buku['judul'] }} </option>
                                         @endforeach
                                 </select>
                                 </div>    
@@ -124,13 +127,13 @@
                                 <div class="col-md-9">
                                     <div class="form-group clearfix">
                                         <div class="icheck-primary d-inline">
-                                          <input type="radio" name="status" value=1 id="radioDanger1">
+                                          <input type="radio" name="status" :checked = "data.status == 1" :value=1 id="radioDanger1">
                                           <label for="radioDanger1">
                                               Masih Dipinjam
                                           </label>
                                         </div>
                                         <div class="icheck-primary d-inline">
-                                          <input type="radio" value=2 name="status" id="radioDanger2">
+                                          <input type="radio" :checked = "data.status == 2" :value=2 name="status" id="radioDanger2">
                                           <label for="radioDanger2">
                                               Sudah Dikembalikan
                                           </label>
@@ -150,7 +153,82 @@
             </div>
             </div>
         </div>
+                <!-- Modal detail -->
+        <div class="modal fade" id="modal-detail">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Detail Peminjaman</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    <input type="hidden" name="_method" value="PUT" v-if = "editStatus">
+                    <div class="container">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Anggota</label>
+                                </div>
+                                <div class="col-md-9">
+                                    @{{ data.nama_anggota }}
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Tanggal</label>
+                                </div>
+                                <div class="col-md-4">
+                                    @{{ data.tgl_pinjam }}
+                                </div>
+                                <div class="col-md-1">
+                                    -
+                                </div>
+                                <div class="col-md-4">
+                                    @{{ data.tgl_kembali }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Buku</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <ul>
+                                        <li style="margin-left: -15px" v-for="buku in data.list_buku" v-if= "buku.dipinjam == true "> 
+                                            <span > @{{ buku.judul }} </span> 
+                                        </li>
+                                    </ul>
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Status</label>
+                                </div>
+                                <div class="col-md-9">
+                                    @{{ data.status == 1 ? "Masih pinjam" : "Sudah dikembalikan"}}
+                                </div>
+                            </div>      
+                        </div>
+                    </div>   
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+            </div>
+        </div>
     </component>
+
+
 @endsection
 
 @push('js')
@@ -172,7 +250,7 @@
             }, orderable: false, class: 'text-center'
         },
       {render: function(index, row, data, meta){
-      return data.grandtotal[0]['totalharga'] ;
+      return data.totalbayar ;
             }, orderable: false, class: 'text-center'
         },
       {render: function(index, row, data, meta){
@@ -181,8 +259,8 @@
         },
     //   {data: 'status', class: 'text-center', orderable: true},
       {render: function(index, row, data, meta){
-      return ` <a href="#" class="btn btn-sm btn-warning" onclick="controller.ubahData(event,${meta.row})">Edit</a>
-      <a href="#" class="btn btn-sm btn-success" onclick="controller.ubahData(event,${meta.row})">Detail</a> 
+      return ` <a href="#" class="btn btn-sm btn-warning" onclick="controller.ubahDataPeminjaman(event,${meta.row})">Edit</a>
+      <a href="#" class="btn btn-sm btn-success" onclick="controller.detailData(event,${meta.row})">Detail</a> 
       <a href="#" class="btn btn-sm btn-danger" onclick="controller.hapusData(event, ${data.id})">Delete</a>`;
             }, orderable: false, class: 'text-center'
         },
@@ -191,20 +269,26 @@
 <script src="{{ asset('js/data.js') }}"></script>
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
 <script type="text/javascript">
+var status = $('select[name=status]').val();
+	var date = $('#tanggalfilter').val();
 $('select[name=status]').on('change', function() {
         status = $('select[name=status]').val();
         if(status == 0){
             controller.table.ajax.url(actionUrl).load();
         } else {
-            controller.table.ajax.url(actionUrl+'?status='+status).load();
+            controller.table.ajax.url(actionUrl+'?status='+status+'&tgl_pinjam='+date).load();
         }
     });
+    $('#tanggalfilter').on('change', function() {
+		date = $('#tanggalfilter').val();
+        controller.table.ajax.url(actionUrl+'?tgl_pinjam='+date+'&status='+status).load();
+	});
 
 //   datepicker
 $( function() {
-    $( "#tanggalfilter" ).datepicker({format:"yyyy-mm-dd"});
-    $( "#tanggalpinjam" ).datepicker({format:"yyyy-mm-dd"});
-    $( "#tanggalkembali" ).datepicker({format:"yyyy-mm-dd"});
+    $( "#tanggalfilter" ).datepicker({format:"dd-mm-yyyy"});
+    $( "#tanggalpinjam" ).datepicker({format:"dd-mm-yyyy"});
+    $( "#tanggalkembali" ).datepicker({format:"dd-mm-yyyy"});
   } );
   //Select 2
   $( function () {

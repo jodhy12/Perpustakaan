@@ -10,7 +10,10 @@ use App\Penerbit;
 use App\Pengarang;
 use App\Anggota;
 use App\Peminjaman;
+use App\User;
 use Carbon\Carbon;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 use PHPUnit\Framework\Constraint\Count;
 
@@ -56,10 +59,15 @@ class AdminController extends Controller
     }
     public function peminjaman()
     {
-        $data_peminjaman = Peminjaman::all();
-        $data['anggota'] = Anggota::all();
-        $databuku = Buku::where('qty_stok', '>', 0)->get();
-        return view('admin.peminjaman', compact('data_peminjaman', 'data', 'databuku'));
+        // if(auth()->user()->can('index peminjaman')){
+            $data_peminjaman = Peminjaman::all();
+            $data['anggota'] = Anggota::all();
+            $databuku = Buku::where('qty_stok', '>', 0)->get();
+            return view('admin.peminjaman', compact('data_peminjaman', 'data', 'databuku'));
+        // }else {
+        //     return abort('403');
+        // }
+
     }
 
     public function penerbit()
@@ -84,5 +92,25 @@ class AdminController extends Controller
         $data['katalog'] = Katalog::all();
         // $data_buku = Buku::all();
         return view('admin.buku', compact('data'));
+    }
+    public function spetie()
+    {
+        // $role = Role::create(['name' => 'petugas']);
+        // $permission = Permission::create(['name' => 'index peminjaman']);
+
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        // $user = auth()->user();
+        // $user->assignRole ('petugas');
+        // return $user;
+
+        $user = auth()->user();
+        $user->removeRole ('petugas');
+        return $user;
+
+        // $user = User::with('roles')->get();
+        // return $user;
+        
     }
 }

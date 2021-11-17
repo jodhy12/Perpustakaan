@@ -37,6 +37,22 @@ var controller = new Vue({
             this.data = this.datas[index];
             $('#modal-default').modal();
         },
+        ubahDataPeminjaman(event, index) {
+            $('#selectbuku').empty();
+            var option = "";
+            this.editStatus = true;
+            this.data = this.datas[index];
+            console.log(this.data);
+            for (var i = 0 ; i < this.data.list_buku.length; i++) {
+               option = option+ "<option value="+this.data.list_buku[i]["id"]+" "+(this.data.list_buku[i]["dipinjam"] == true ? "selected": "")+">"+this.data.list_buku[i]["judul"]+"</option>"; 
+            }
+            $('#selectbuku').append(option);
+            $('#modal-default').modal();
+        },
+        detailData(event, index) {
+            this.data = this.datas[index];
+            $('#modal-detail').modal();
+        },
         hapusData(event, id) {
             if (confirm("Are You Sure?")) {
                 $(event.target).parents('tr').remove();
@@ -50,7 +66,7 @@ var controller = new Vue({
             const _this = this;
             var actionUrl =  !this.editStatus ? this.actionUrl : this.actionUrl+'/'+id;
             axios.post(actionUrl, new FormData($(event.target)[0])).then(response =>{
-                $('#modal.default').modal('hide');
+                $('#modal-default').modal('hide');
                 _this.table.ajax.reload();
             });
         },
