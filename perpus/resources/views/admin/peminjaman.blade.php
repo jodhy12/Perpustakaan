@@ -2,7 +2,7 @@
 @section('header', 'Peminjaman')
 @push('css') 
 {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" /> --}}
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" >
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
@@ -58,67 +58,69 @@
             </div>
         </div>
 
-                <!-- Modal -->
-        <div class="modal fade" id="modal-default">
-            <div class="modal-dialog">
-            <div class="modal-content">
-            <form :action="actionUrl" method="post" autocomplete="off" @submit="submitForm($event, data.id)">
-                <div class="modal-header">
-                    <h4 class="modal-title" v-if="!editStatus">Tambah Peminjaman</h4>
-                    <h4 class="modal-title" v-if="editStatus">Edit Peminjaman</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal-default">
+<div class="modal-dialog">
+<div class="modal-content">
+<form :action="actionUrl" method="post" autocomplete="off" @submit="submitForm($event, data.id)">
+<div class="modal-header">
+    <h4 class="modal-title" v-if="!editStatus">Tambah Peminjaman</h4>
+    <h4 class="modal-title" v-if="editStatus">Edit Peminjaman</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    @csrf
+
+    {{-- @method('PUT') --}}
+    <input type="hidden" name="_method" value="PUT" v-if="editStatus">
+    <div class="container">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Anggota</label>
                 </div>
-                <div class="modal-body">
-                    @csrf
-                    <input type="hidden" name="_method" value="PUT" v-if = "editStatus">
-                    <div class="container">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Anggota</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <select name="id_anggota" class="form-control">
-                                        <option value="">-- Anggota --</option>
-                                            @foreach ($data['anggota'] as $anggota)
-                                                <option :selected="data.id_anggota == {{ $anggota['id'] }} " value = "{{ $anggota['id'] }}"> {{ $anggota['nama'] }} </option>
-                                            @endforeach
-                                    </select>
-                                </div>
-                            </div>    
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Tanggal</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" :value="data.tgl_pinjam" id="tanggalpinjam" name="tgl_pinjam"  required="" placeholder="Pinjam">
-                                </div>
-                                <div class="col-md-1">
-                                    -
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" :value="data.tgl_kembali" id="tanggalkembali" name="tgl_kembali"    required="" placeholder="Kembali">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Buku</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <select class="form-control select2" multiple="multiple" name="buku[]" id="selectbuku">
-                                        @foreach ( $databuku as $buku)
-                                        <option :value="{{ $buku['id']}}" > {{ $buku['judul'] }} </option>
-                                        @endforeach
-                                </select>
-                                </div>    
-                            </div>
-                        </div>
+                <div class="col-md-9">
+                    <select name="id_anggota" class="form-control">
+                        <option value="">-- Anggota --</option>
+                            @foreach ($data['anggota'] as $anggota)
+                                <option :selected="data.id_anggota == {{ $anggota['id'] }} " value = "{{ $anggota['id'] }}"> {{ $anggota['nama'] }} </option>
+                            @endforeach
+                    </select>
+                </div>
+            </div>    
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Tanggal</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" :value="data.tgl_pinjam" id="tanggalpinjam" name="tgl_pinjam"  required="" placeholder="Pinjam">
+                </div>
+                <div class="col-md-1">
+                    -
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" :value="data.tgl_kembali" id="tanggalkembali" name="tgl_kembali"    required="" placeholder="Kembali">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Buku</label>
+                </div>
+                <div class="col-md-9">
+                    <select class="form-control select2" multiple="multiple" name="buku[]" id="selectbuku">
+                        @foreach ( $databuku as $buku)
+                        <option :value="{{ $buku['id']}}" > {{ $buku['judul'] }} </option>
+                        @endforeach
+                </select>
+                </div>    
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-3">
@@ -232,6 +234,7 @@
 @endsection
 
 @push('js')
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 <script src="{{ asset('plugins\datatables\jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('plugins\datatables-bs4\js\dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('plugins\datatables-responsive\js\dataTables.responsive.min.js') }}"></script>
