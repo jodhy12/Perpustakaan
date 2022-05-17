@@ -38,6 +38,7 @@ CREATE TABLE `detailobat` (
 
 LOCK TABLES `detailobat` WRITE;
 /*!40000 ALTER TABLE `detailobat` DISABLE KEYS */;
+INSERT INTO `detailobat` VALUES ('Ngantuk','Obat Batuk Alami',1),('Letih','Obat Migren',2),('Pegel','Obat Demam',3),('Lapar','Obat Sakit Gigi',4);
 /*!40000 ALTER TABLE `detailobat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,7 +53,7 @@ CREATE TABLE `kategori` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(30) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,6 +62,7 @@ CREATE TABLE `kategori` (
 
 LOCK TABLES `kategori` WRITE;
 /*!40000 ALTER TABLE `kategori` DISABLE KEYS */;
+INSERT INTO `kategori` VALUES (1,'Kategori Satu'),(2,'Kategori Dua'),(3,'Kategori Tiga');
 /*!40000 ALTER TABLE `kategori` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +83,7 @@ CREATE TABLE `obat` (
   PRIMARY KEY (`id_obat`),
   KEY `fk_kategori` (`category_id`),
   CONSTRAINT `fk_kategori` FOREIGN KEY (`category_id`) REFERENCES `kategori` (`category_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,6 +92,7 @@ CREATE TABLE `obat` (
 
 LOCK TABLES `obat` WRITE;
 /*!40000 ALTER TABLE `obat` DISABLE KEYS */;
+INSERT INTO `obat` VALUES (1,'Obat Satu',1,'Pcs',10,15000),(2,'Obat Dua',3,'Botol',15,35000),(3,'Obat Tiga',2,'Botol',5,50000),(4,'Obat Empat',3,'Pcs',10,25000);
 /*!40000 ALTER TABLE `obat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +108,7 @@ CREATE TABLE `penjualan` (
   `tgl_transaksi` datetime NOT NULL,
   `total_trx` double NOT NULL,
   PRIMARY KEY (`id_transaksi`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,6 +117,7 @@ CREATE TABLE `penjualan` (
 
 LOCK TABLES `penjualan` WRITE;
 /*!40000 ALTER TABLE `penjualan` DISABLE KEYS */;
+INSERT INTO `penjualan` VALUES (1,'2022-05-18 00:49:47',100000),(2,'2022-05-18 00:49:47',125000);
 /*!40000 ALTER TABLE `penjualan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,21 +133,23 @@ CREATE TABLE `penjualan_detail` (
   `id_transaksi` int(11) NOT NULL,
   `id_obat` int(11) NOT NULL,
   `jmlh_obat` int(11) NOT NULL,
-  `harsat` double NOT NULL,
+  `harga` double NOT NULL,
   PRIMARY KEY (`id_tx_detail`),
   KEY `fk_penjualan_detail_obat1_idx` (`id_obat`),
   KEY `fk_idtransaksi_idx` (`id_transaksi`),
   CONSTRAINT `fk_idtransaksi` FOREIGN KEY (`id_transaksi`) REFERENCES `penjualan` (`id_transaksi`) ON UPDATE CASCADE,
   CONSTRAINT `fk_penjualan_detail_obat1` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `penjualan_detail`
 --
+--
 
 LOCK TABLES `penjualan_detail` WRITE;
 /*!40000 ALTER TABLE `penjualan_detail` DISABLE KEYS */;
+INSERT INTO `penjualan_detail` VALUES (1,1,1,2,30000),(2,1,2,2,70000),(3,2,4,3,75000),(4,2,3,1,50000);
 /*!40000 ALTER TABLE `penjualan_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -156,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-18  0:30:29
+-- Dump completed on 2022-05-18  1:00:29
