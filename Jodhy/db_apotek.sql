@@ -16,6 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `detailobat`
+--
+
+DROP TABLE IF EXISTS `detailobat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `detailobat` (
+  `efeksamping` mediumtext,
+  `keterangan` mediumtext,
+  `detail_id_obat` int(11) NOT NULL,
+  PRIMARY KEY (`detail_id_obat`),
+  KEY `fk_detailobat_obat1_idx` (`detail_id_obat`),
+  CONSTRAINT `fk_detailobat_obat1` FOREIGN KEY (`detail_id_obat`) REFERENCES `obat` (`id_obat`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detailobat`
+--
+
+LOCK TABLES `detailobat` WRITE;
+/*!40000 ALTER TABLE `detailobat` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detailobat` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `kategori`
 --
 
@@ -35,7 +61,6 @@ CREATE TABLE `kategori` (
 
 LOCK TABLES `kategori` WRITE;
 /*!40000 ALTER TABLE `kategori` DISABLE KEYS */;
-INSERT INTO `kategori` VALUES (1,'Kategori Satu'),(2,'Kategori Dua');
 /*!40000 ALTER TABLE `kategori` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -47,12 +72,13 @@ DROP TABLE IF EXISTS `obat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `obat` (
-  `med_id` int(11) NOT NULL AUTO_INCREMENT,
-  `med_name` varchar(30) NOT NULL,
-  `stock` int(11) NOT NULL,
-  `price` decimal(10,0) NOT NULL,
+  `id_obat` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_obat` varchar(30) NOT NULL,
   `category_id` int(11) NOT NULL,
-  PRIMARY KEY (`med_id`),
+  `satuan` varchar(20) DEFAULT NULL,
+  `stok` int(11) NOT NULL,
+  `harga` double NOT NULL,
+  PRIMARY KEY (`id_obat`),
   KEY `fk_kategori` (`category_id`),
   CONSTRAINT `fk_kategori` FOREIGN KEY (`category_id`) REFERENCES `kategori` (`category_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -64,8 +90,61 @@ CREATE TABLE `obat` (
 
 LOCK TABLES `obat` WRITE;
 /*!40000 ALTER TABLE `obat` DISABLE KEYS */;
-INSERT INTO `obat` VALUES (1,'Obat Satu',10,15000,1),(2,'Obat Dua',15,13000,1),(3,'Obat Tiga',20,8000,2);
 /*!40000 ALTER TABLE `obat` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `penjualan`
+--
+
+DROP TABLE IF EXISTS `penjualan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `penjualan` (
+  `id_transaksi` int(11) NOT NULL AUTO_INCREMENT,
+  `tgl_transaksi` datetime NOT NULL,
+  `total_trx` double NOT NULL,
+  PRIMARY KEY (`id_transaksi`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `penjualan`
+--
+
+LOCK TABLES `penjualan` WRITE;
+/*!40000 ALTER TABLE `penjualan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `penjualan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `penjualan_detail`
+--
+
+DROP TABLE IF EXISTS `penjualan_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `penjualan_detail` (
+  `id_tx_detail` int(11) NOT NULL AUTO_INCREMENT,
+  `id_transaksi` int(11) NOT NULL,
+  `id_obat` int(11) NOT NULL,
+  `jmlh_obat` int(11) NOT NULL,
+  `harsat` double NOT NULL,
+  PRIMARY KEY (`id_tx_detail`),
+  KEY `fk_penjualan_detail_obat1_idx` (`id_obat`),
+  KEY `fk_idtransaksi_idx` (`id_transaksi`),
+  CONSTRAINT `fk_idtransaksi` FOREIGN KEY (`id_transaksi`) REFERENCES `penjualan` (`id_transaksi`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_penjualan_detail_obat1` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `penjualan_detail`
+--
+
+LOCK TABLES `penjualan_detail` WRITE;
+/*!40000 ALTER TABLE `penjualan_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `penjualan_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -77,4 +156,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-17 23:02:02
+-- Dump completed on 2022-05-18  0:30:29
