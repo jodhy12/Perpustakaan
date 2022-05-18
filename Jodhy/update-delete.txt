@@ -1,0 +1,18 @@
+update obat
+set nama_obat = "Obat Satu Edit"
+where id_obat = 1
+
+
+update obat
+set nama_obat = "Obat Satu", stok = 20
+where id_obat = 1
+
+update obat
+set stok = stok + 10
+where id_obat = 1
+
+delete from obat
+where id_obat = 1
+
+delete from detailobat
+where detail_id_obat = 1
