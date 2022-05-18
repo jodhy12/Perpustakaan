@@ -1,0 +1,39 @@
+1. Tampilkan semua
+
+select *
+from obat
+
+select *
+from detail_obat
+
+select *
+from penjualan_detail
+
+2. Tampilkan data yang diinginkan
+
+select nama_obat, satuan, stok, harga /* menampilkan kolom data nama obat, satuan, stok, harga dari tabel obat */
+from obat
+
+select category_name /* menampilkan kolom data nama kategori dari tabel kategori */
+from kategori 
+
+select efeksamping, keterangan /* menampilkan data efek samping dan keterangan dari tabel detail obat */
+from detailobat
+
+3. Tampilkan data berdasarkan kondisi
+
+select *
+from obat
+where stok > 5 /* menampilkan semua data obat dimana stok lebih besar dari 5 */
+
+select *
+from obat
+where harga > 25000 /* menampilkan semua data obat dimana harga lebih besar 25000 */
+
+select *
+from penjualan_detail
+where id_transaksi = 1 /* menampilkan semua data penjualan_detail dimana id_transaksi = 1 */
+
+select *
+from obat
+where category_id = 1 /* menampilkan semua data obat dimana id kategori = 1 dari tabel obat */
