@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hello</title>
+    <script src="https://unpkg.com/vue@3"></script>
+
+</head>
+<body>
+    <div id="app">
+        <h1 v-if="status != false">
+            {{ message }}
+        </h1>
+        <br>
+        <div v-for="user in users">
+            <p>Nama : {{ user.name }}</p>
+            <p>Umur : {{ user.age }}</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const { createApp } = Vue
+    createApp({
+
+      data() {
+        return {
+          message: 'Hello Vue!',
+          status : true,
+          users : [
+              {
+                  name: 'Jodhy',
+                  age: 26
+              },
+              {
+                  name: 'Mario',
+                  age: 27
+              },
+              {
+                  name: 'Luigi',
+                  age: 25
+              }
+          ]
+        }
+      }
+
+    }).mount('#app')
+  </script>
