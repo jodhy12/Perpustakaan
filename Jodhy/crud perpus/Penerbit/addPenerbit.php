@@ -2,6 +2,7 @@
 
 <head>
     <title>Add Penerbit</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <?php
@@ -10,34 +11,43 @@ $penerbit = mysqli_query($mysqli, "SELECT * FROM penerbit");
 ?>
 
 <body>
-    <a href="penerbit.php">Go to Penerbit</a>
+    <a class="button" href="penerbit.php">Go to Penerbit</a>
     <br /><br />
 
     <form action="addPenerbit.php" method="post" name="form1">
-        <table width="25%" border="0">
+        <table width="30%" border="0">
             <tr>
-                <td>Id Penerbit</td>
-                <td><input type="text" name="id_penerbit"></td>
+                <td>
+                    <label>ID Penerbit</label>
+                    <input type="text" name="id_penerbit">
+                </td>
             </tr>
             <tr>
-                <td>Nama</td>
-                <td><input type="text" name="nama_penerbit"></td>
+                <td>
+                    <label>Nama</label>
+                    <input type="text" name="nama_penerbit">
+                </td>
             </tr>
             <tr>
-                <td>Email</td>
-                <td><input type="text" name="email"></td>
+                <td>
+                    <label>E-Mail</label>
+                    <input type="text" name="email">
+                </td>
             </tr>
             <tr>
-                <td>Telp</td>
-                <td><input type="text" name="telp"></td>
+                <td>
+                    <label>Telp</label>
+                    <input type="text" name="telp">
+                </td>
             </tr>
             <tr>
-                <td>Alamat</td>
-                <td><input type="text" name="alamat"></td>
+                <td>
+                    <label>Alamat</label>
+                    <input type="text" name="alamat">
+                </td>
             </tr>
             <tr>
-                <td></td>
-                <td><input type="submit" name="Submit" value="Add"></td>
+                <td><input class="button" type="submit" name="Submit" value="Add"></td>
             </tr>
         </table>
     </form>

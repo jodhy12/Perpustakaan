@@ -2,6 +2,7 @@
 
 <head>
     <title>Edit Pengarang</title>
+    <link rel="stylesheet" href="../css//style.css">
 </head>
 
 <?php
@@ -17,34 +18,43 @@ foreach ($pengarang as $value) {
 ?>
 
 <body>
-    <a href="pengarang.php">Go to pengarang</a>
+    <a class="button" href="pengarang.php">Go to pengarang</a>
     <br /><br />
 
     <form action="editpengarang.php?<?php echo "$id_pengarang" ?>" method="post" name="form1">
-        <table width="25%" border="0">
+        <table width="30%" border="0">
             <tr>
-                <td>Id pengarang</td>
-                <td><input style="border: none;" type="text" name="id_pengarang" value="<?php echo $id_pengarang; ?>" readonly></td>
+                <td>
+                    <label>ID Pengarang</label>
+                    <input style="border: none;" type="text" name="id_pengarang" value="<?php echo $id_pengarang; ?>" readonly>
+                </td>
             </tr>
             <tr>
-                <td>Nama</td>
-                <td><input type="text" name="nama_pengarang" value="<?php echo $nama_pengarang; ?>"></td>
+                <td>
+                    <label>Nama</label>
+                    <input type="text" name="nama_pengarang" value="<?php echo $nama_pengarang; ?>">
+                </td>
             </tr>
             <tr>
-                <td>Email</td>
-                <td><input type="text" name="email" value="<?php echo $email; ?>"></td>
+                <td>
+                    <label>E-Mail</label>
+                    <input type="text" name="email" value="<?php echo $email; ?>">
+                </td>
             </tr>
             <tr>
-                <td>Telp</td>
-                <td><input type="text" name="telp" value="<?php echo $telp; ?>"></td>
+                <td>
+                    <label>Telp</label>
+                    <input type="text" name="telp" value="<?php echo $telp; ?>">
+                </td>
             </tr>
             <tr>
-                <td>Alamat</td>
-                <td><input type="text" name="alamat" value="<?php echo $alamat; ?>"></td>
+                <td>
+                    <label>Alamat</label>
+                    <input type="text" name="alamat" value="<?php echo $alamat; ?>">
+                </td>
             </tr>
             <tr>
-                <td></td>
-                <td><input type="submit" name="Submit" value="Add"></td>
+                <td><input class="button" type="submit" name="Submit" value="Add"></td>
             </tr>
         </table>
     </form>

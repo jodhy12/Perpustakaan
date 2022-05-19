@@ -2,6 +2,7 @@
 
 <head>
     <title>Add Katalog</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <?php
@@ -10,22 +11,25 @@ $katalog = mysqli_query($mysqli, "SELECT * FROM katalog");
 ?>
 
 <body>
-    <a href="katalog.php">Go to katalog</a>
+    <a class="button" href="katalog.php">Go to katalog</a>
     <br /><br />
 
     <form action="addKatalog.php" method="post" name="form1">
-        <table width="25%" border="0">
+        <table width="30%" border="0">
             <tr>
-                <td>Id Pengarang</td>
-                <td><input type="text" name="id_katalog"></td>
+                <td>
+                    <label>ID Katalog</label>
+                    <input type="text" name="id_katalog">
+                </td>
             </tr>
             <tr>
-                <td>Nama</td>
-                <td><input type="text" name="nama"></td>
+                <td>
+                    <label>Nama</label>
+                    <input type="text" name="nama">
+                </td>
             </tr>
             <tr>
-                <td></td>
-                <td><input type="submit" name="Submit" value="Add"></td>
+                <td><input class="button" type="submit" name="Submit" value="Add"></td>
             </tr>
         </table>
     </form>

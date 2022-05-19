@@ -2,6 +2,7 @@
 
 <head>
     <title>Edit Katalog</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <?php
@@ -14,22 +15,25 @@ foreach ($katalog as $value) {
 ?>
 
 <body>
-    <a href="katalog.php">Go to Katalog</a>
+    <a class="button" href="katalog.php">Go to Katalog</a>
     <br /><br />
 
     <form action="editKatalog.php?<?php echo "$id_katalog" ?>" method="post" name="form1">
-        <table width="25%" border="0">
+        <table width="30%" border="0">
             <tr>
-                <td>Id Katalog</td>
-                <td><input style="border: none;" type="text" name="id_katalog" value="<?php echo $id_katalog; ?>" readonly></td>
+                <td>
+                    <label>ID Katalog</label>
+                    <input style="border: none;" type="text" name="id_katalog" value="<?php echo $id_katalog; ?>" readonly>
+                </td>
             </tr>
             <tr>
-                <td>Nama</td>
-                <td><input type="text" name="nama" value=" <?php echo $nama; ?>"></td>
+                <td>
+                    <label>ID Katalog</label>
+                    <input type="text" name="nama" value=" <?php echo $nama; ?>">
+                </td>
             </tr>
             <tr>
-                <td></td>
-                <td><input type="submit" name="Submit" value="Add"></td>
+                <td><input class="button" type="submit" name="Submit" value="Add"></td>
             </tr>
         </table>
     </form>
