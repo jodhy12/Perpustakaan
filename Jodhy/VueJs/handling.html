@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hello</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+    <div id="app">
+      <h1>
+          {{ message }}
+      </h1>
+      <div v-if="status">
+          <button @click="count++">Add 1</button>
+          <p>{{ count }}</p>
+          <h2>Greet</h2>
+          <button @click="greet">greet</button>
+          <button v-on:click="say('Hello')">Say Hello</button>
+          <button v-on:click="say('Bye')">Say Bye</button>
+          <br><br>
+          <!-- Use $event special variable -->
+          <button @click="warn('form cannot be submitted yet.', $event)">
+            Submit
+          </button>
+          <br /><br />
+          <!-- Use Arrow -->
+          <button @click="event => warn('form cannot be submitted yet')">
+            Submit
+          </button>
+          <br /><br />
+          <!-- Alt + Enter -->
+          <label>press alt + enter for clear </label>
+          <input @keyup.alt.enter="clear" v-model="input"/>
+          <br /><br />
+          <label>press alt + coma for add list </label>
+          <input v-model="temp" @keyup.alt="addTemp">
+          <br><br>
+          <label>click list below for deleting list</label>
+          <br><br>
+          <div v-for="list in temps">
+            <span style="cursor: pointer;" @click="deleteList(list)">{{ list }}</span>
+          </div>
+      </div>
+      <br><br>
+      <button @click="hideStatus">
+          <span v-if="status">Sembunyikan</span>
+          <span v-else>Tampilkan</span>
+      </button>
+    </div>
+</body>
+</html>
+
+<script>
+    const { createApp } = Vue
+    createApp({
+
+      data() {
+        return {
+          message : 'Vue.js',
+          count : 0,
+          status : true,
+          input : '',
+          temp : '',
+          temps : ['abc','bcd','def']
+        }
+      },
+      methods:{
+        hideStatus(){
+          this.status = !this.status
+        },
+
+        greet(event){
+          alert(`Hello ${this.message}`)
+          console.log(event.target.tagName)
+        },
+
+        say(mess){
+          alert(mess)
+        },
+
+        warn(mess, event)
+        {
+          if(event)
+          {
+            event.preventDefault();
+          }
+          alert(mess)
+        },
+
+        clear(){
+          this.input = ''
+        },
+
+        addTemp(e){
+          if(e.key === ',' && this.temp){
+            if(!this.temps.includes(this.temp))
+            {
+              this.temps.push(this.temp)
+            }
+            this.temp = ''
+          }
+        },
+        deleteList(list){
+          this.temps = this.temps.filter(item => {
+            return list !== item
+          })
+        }
+        
+      }
+
+    }).mount('#app')
+  </script>
+  <style>
+    button{
+      background-color: #00FFAB;
+      color: #010806;
+      padding:10px;
+      margin: 2px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
