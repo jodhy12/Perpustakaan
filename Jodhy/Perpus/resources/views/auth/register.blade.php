@@ -1,7 +1,5 @@
-@section('title')
-    Register Page
-@stop
 @extends('layouts.app')
+@section('title', 'Register Page')
 
 @section('content')
 

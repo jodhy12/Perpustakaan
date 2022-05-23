@@ -1,8 +1,5 @@
-@section('title')
-    Login Form
-@stop
-
 @extends('layouts.app')
+@section('title', 'Login Page')
 
 @section('content')
 

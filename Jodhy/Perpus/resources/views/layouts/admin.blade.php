@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Dashboard')</title>
+    <title>@yield('header')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -31,12 +31,6 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('home') }}" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
                 </li>
             </ul>
 
@@ -66,13 +60,22 @@
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </li>
+                @guest
+                    @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                        </li>
+                    @endif
+                @endguest
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                @endauth
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -80,7 +83,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="{{ route('home') }}" class="brand-link">
                 <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Dashboard</span>
@@ -94,10 +97,17 @@
                         <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
                             alt="User Image">
                     </div>
-                    <div class="info">
-                        <a href="#" class="d-block"
-                            style="text-transform: uppercase">{{ Auth::user()->email }}</a>
-                    </div>
+                    @guest
+                        <div class="info">
+                            <a href="#" class="d-block" style="text-transform: uppercase">Guest</a>
+                        </div>
+                    @endguest
+                    @auth
+                        <div class="info">
+                            <a href="#" class="d-block"
+                                style="text-transform: uppercase">{{ Auth::user()->name }}</a>
+                        </div>
+                    @endauth
                 </div>
 
                 <!-- SidebarSearch Form -->
@@ -118,11 +128,47 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+                   with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <a href="{{ route('home') }}"
+                                class="nav-link {{ request()->is('home') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-home"></i>
                                 <p> Home </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('catalog.index') }}"
+                                class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p> Catalog </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('author.index') }}"
+                                class="nav-link {{ request()->is('author') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-circle"></i>
+                                <p> Author </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('publisher.index') }}"
+                                class="nav-link {{ request()->is('publisher') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-circle"></i>
+                                <p> Publisher </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('book.index') }}"
+                                class="nav-link {{ request()->is('book') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p> Book </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('member.index') }}"
+                                class="nav-link {{ request()->is('member') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p> Member </p>
                             </a>
                         </li>
                     </ul>
@@ -139,7 +185,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">@yield('header')</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
