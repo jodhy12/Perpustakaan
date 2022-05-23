@@ -6,6 +6,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,3 +38,5 @@ Route::get('/publisher', [PublisherController::class, 'index'])->name('publisher
 Route::get('/book', [BookController::class, 'index'])->name('book.index');
 
 Route::get('/member', [MemberController::class, 'index'])->name('member.index');
+
+Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');

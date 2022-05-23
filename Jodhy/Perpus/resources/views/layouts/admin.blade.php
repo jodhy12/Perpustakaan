@@ -137,10 +137,17 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('catalog.index') }}"
-                                class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p> Catalog </p>
+                            <a href="{{ route('transaction.index') }}"
+                                class="nav-link {{ request()->is('transaction') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-chart-line"></i>
+                                <p> Transaction </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('member.index') }}"
+                                class="nav-link {{ request()->is('member') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p> Member </p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -165,10 +172,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('member.index') }}"
-                                class="nav-link {{ request()->is('member') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p> Member </p>
+                            <a href="{{ route('catalog.index') }}"
+                                class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p> Catalog </p>
                             </a>
                         </li>
                     </ul>
