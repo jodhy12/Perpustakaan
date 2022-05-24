@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
+    public function user()
+    {
+        return $this->hasOne(User::class, 'member_id');
+    }
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class, 'member_id');
+    }
 }
