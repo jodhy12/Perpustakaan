@@ -182,7 +182,7 @@ class HomeController extends Controller
         $data20 = Member::where('created_at', 'like', '%2022-05%')
             ->get('*');
 
-        return $data20;
+        // return $data20;
         return view('home');
     }
 }
