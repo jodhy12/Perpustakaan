@@ -2,10 +2,10 @@
 @section('header', 'Catalog')
 @section('content')
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Data Catalog</h3>
+                    <a href="{{ route('catalog.create') }}" class="btn btn-primary">Create new Catalog</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -16,6 +16,7 @@
                                 <th class="text-center">Name</th>
                                 <th class="text-center">Total Books</th>
                                 <th class="text-center">Created At</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,6 +31,17 @@
                                     @endif
                                     <td class="text-center">
                                         {{ date('H:i:s - d M Y', strtotime($catalog->created_at)) }}
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('catalog.edit', $catalog->id) }}"
+                                            class="btn btn-warning">Edit</a>
+
+                                        <form action="{{ route('catalog.delete', $catalog->id) }}" method="POST">
+                                            <input type="submit" class="btn btn-danger" value="Delete"
+                                                onclick="return confirm('are you sure ?')">
+                                            @method('delete')
+                                            @csrf
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -47,5 +59,7 @@
                     </ul>
                 </div> --}}
             </div>
-            <!-- /.card -->
-        @endsection
+        </div>
+    </div>
+    <!-- /.card -->
+@endsection

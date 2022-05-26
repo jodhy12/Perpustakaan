@@ -137,43 +137,43 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('transaction.index') }}"
-                                class="nav-link {{ request()->is('transaction') ? 'active' : '' }}">
+                            <a href="{{ route('transactions.index') }}"
+                                class="nav-link {{ request()->is('transactions') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-chart-line"></i>
                                 <p> Transaction </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('member.index') }}"
-                                class="nav-link {{ request()->is('member') ? 'active' : '' }}">
+                            <a href="{{ route('members.index') }}"
+                                class="nav-link {{ request()->is('members') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p> Member </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('author.index') }}"
-                                class="nav-link {{ request()->is('author') ? 'active' : '' }}">
+                            <a href="{{ route('authors.index') }}"
+                                class="nav-link {{ request()->is('authors') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-circle"></i>
                                 <p> Author </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('publisher.index') }}"
-                                class="nav-link {{ request()->is('publisher') ? 'active' : '' }}">
+                            <a href="{{ route('publishers.index') }}"
+                                class="nav-link {{ request()->is('publishers') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-circle"></i>
                                 <p> Publisher </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('book.index') }}"
-                                class="nav-link {{ request()->is('book') ? 'active' : '' }}">
+                            <a href="{{ route('books.index') }}"
+                                class="nav-link {{ request()->is('books') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p> Book </p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('catalog.index') }}"
-                                class="nav-link {{ request()->is('catalog') ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('catalogs') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p> Catalog </p>
                             </a>
@@ -204,7 +204,11 @@
             <!-- /.content-header -->
 
             <!-- Main content -->
-            @yield('content')
+            <div class="content-header">
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </div>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
