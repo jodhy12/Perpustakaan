@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthorController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +20,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::with('books')->get();
-        return view('admin.author.index', compact('authors'));
+        $authors = Author::all();
+        return view('admin.author', compact('authors'));
     }
 
     /**
@@ -26,7 +31,6 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return view('admin.author.create');
     }
 
     /**
@@ -101,6 +105,5 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         $author->delete();
-        return redirect('authors');
     }
 }
