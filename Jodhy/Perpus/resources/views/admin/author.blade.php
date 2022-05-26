@@ -136,7 +136,7 @@
                 deleteData(id) {
                     this.actionUrl = '{{ route('authors.store') }}/' + id
                     if (confirm("Are you sure ? ")) {
-                        axios.delete(this.actionUrl, {
+                        axios.post(this.actionUrl, {
                                 _method: 'delete'
                             })
                             .then(response => {
