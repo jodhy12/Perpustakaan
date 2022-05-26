@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Create new catalog</h3>
                 </div>
-                <form action="{{ route('catalog.store') }}" method="POST">
+                <form action="{{ route('catalogs.store') }}" method="POST">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">

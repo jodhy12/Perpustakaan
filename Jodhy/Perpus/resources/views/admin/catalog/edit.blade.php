@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Edit catalog</h3>
                 </div>
-                <form action="{{ route('catalog.update', $catalog->id) }}" method="POST">
+                <form action="{{ route('catalogs.update', $catalog->id) }}" method="POST">
                     @csrf
 
                     {{ method_field('PUT') }}

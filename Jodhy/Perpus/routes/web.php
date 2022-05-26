@@ -32,12 +32,15 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Route Catalog
-Route::get('/catalogs', [CatalogController::class, 'index'])->name('catalog.index');
-Route::get('/catalogs/create', [CatalogController::class, 'create'])->name('catalog.create');
-Route::post('/catalogs', [CatalogController::class, 'store'])->name('catalog.store');
-Route::get('/catalogs/{catalog}/edit', [CatalogController::class, 'edit'])->name('catalog.edit');
-Route::put('/catalogs/{catalog}', [CatalogController::class, 'update'])->name('catalog.update');
-Route::delete('catalogs/{catalog}', [CatalogController::class, 'destroy'])->name('catalog.delete');
+// Route::get('/catalogs', [CatalogController::class, 'index'])->name('catalogs.index');
+// Route::get('/catalogs/create', [CatalogController::class, 'create'])->name('catalogs.create');
+// Route::post('/catalogs', [CatalogController::class, 'store'])->name('catalogs.store');
+// Route::get('/catalogs/{catalog}/edit', [CatalogController::class, 'edit'])->name('catalogs.edit');
+// Route::put('/catalogs/{catalog}', [CatalogController::class, 'update'])->name('catalogs.update');
+// Route::delete('catalogs/{catalog}', [CatalogController::class, 'destroy'])->name('catalogs.delete');
+Route::resource('catalogs', CatalogController::class)->except([
+    'show'
+]);
 
 // Route Author
 // Route::get('/authors', [AuthorController::class, 'index'])->name('author.index');

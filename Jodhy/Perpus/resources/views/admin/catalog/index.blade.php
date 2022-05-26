@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{ route('catalog.create') }}" class="btn btn-primary">Create new Catalog</a>
+                    <a href="{{ route('catalogs.create') }}" class="btn btn-primary">Create new Catalog</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -33,10 +33,9 @@
                                         {{ date('H:i:s - d M Y', strtotime($catalog->created_at)) }}
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('catalog.edit', $catalog->id) }}"
+                                        <a href="{{ route('catalogs.edit', $catalog->id) }}"
                                             class="btn btn-warning">Edit</a>
-
-                                        <form action="{{ route('catalog.delete', $catalog->id) }}" method="POST">
+                                        <form action="{{ route('catalogs.destroy', $catalog->id) }}" method="POST">
                                             <input type="submit" class="btn btn-danger" value="Delete"
                                                 onclick="return confirm('are you sure ?')">
                                             @method('delete')

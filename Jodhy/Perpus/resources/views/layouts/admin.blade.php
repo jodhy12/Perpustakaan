@@ -172,7 +172,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('catalog.index') }}"
+                            <a href="{{ route('catalogs.index') }}"
                                 class="nav-link {{ request()->is('catalogs') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p> Catalog </p>
