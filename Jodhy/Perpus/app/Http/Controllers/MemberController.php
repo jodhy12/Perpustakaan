@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class MemberController extends Controller
 {
@@ -50,9 +51,9 @@ class MemberController extends Controller
         $this->validate($request, [
             'name' => ['required', 'max:64'],
             'gender' => ['required'],
-            'phone_number' => ['required', 'unique:authors,phone_number', 'min:10', 'max:13'],
+            'phone_number' => ['required', Rule::unique('members', 'phone_number'), 'min:10', 'max:13'],
             'address' => ['required', 'max:255'],
-            'email' => ['required', 'unique:authors,email', 'max:64']
+            'email' => ['required', Rule::unique('members', 'email'), 'max:64']
         ]);
 
         Member::create($request->all());
@@ -94,9 +95,9 @@ class MemberController extends Controller
         $this->validate($request, [
             'name' => ['required', 'max:64'],
             'gender' => ['required'],
-            'email' => ['required', 'unique:publishers,email,' . $member->id . ',id', 'max:64'],
-            'phone_number' => ['required', 'unique:publishers,phone_number,' . $member->id . ',id', 'min:10', 'max:13'],
-            'address' => ['required', 'max:255']
+            'phone_number' => ['required', Rule::unique('members', 'phone_number')->ignore($member->id, 'id'), 'min:10', 'max:13'],
+            'address' => ['required', 'max:255'],
+            'email' => ['required', Rule::unique('members', 'email')->ignore($member->id, 'id'), 'max:64']
         ]);
 
         $member->update($request->all());
