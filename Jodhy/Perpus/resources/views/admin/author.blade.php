@@ -119,7 +119,7 @@
             },
             {
                 data: 'email',
-                class: 'text-center',
+                class: 'text-left',
                 orderable: true
             },
             {
@@ -129,7 +129,7 @@
             },
             {
                 data: 'address',
-                class: 'text-center',
+                class: 'text-left',
                 orderable: true
             },
             {

@@ -123,7 +123,7 @@
         const columns = [{
                 data: 'DT_RowIndex',
                 class: 'text-center',
-                orderable: true
+                orderable: true,
             },
             {
                 data: 'name',
@@ -136,7 +136,7 @@
                     return type === 'display' && data === 'L' ? 'Laki - Laki' : 'Perempuan';
                 },
                 class: 'text-center',
-                orderable: false
+                orderable: true
             },
             {
                 data: 'phone_number',
@@ -145,12 +145,12 @@
             },
             {
                 data: 'address',
-                class: 'text-center',
+                class: 'text-left',
                 orderable: true
             },
             {
                 data: 'email',
-                class: 'text-center',
+                class: 'text-left',
                 orderable: true
             },
             {

@@ -19,7 +19,8 @@ const controller = createApp({
                 url: this.apiUrl,
                 type: "GET"
             },
-            columns
+            columns,
+            autoWidth: false
         }).on('xhr', () => {
             this.datas = _this.table.ajax.json().data;
         });
