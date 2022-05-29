@@ -45,21 +45,36 @@ Route::resource('catalogs', CatalogController::class)->except([
 // Route Author
 // Route::get('/authors', [AuthorController::class, 'index'])->name('author.index');
 Route::resource('authors', AuthorController::class)->except([
-    'show'
+    'show', 'create', 'edit'
 ]);
+
+// Route Api Author
+Route::get('/api/authors', [AuthorController::class, 'api'])->name('api.authors');
 
 
 // Route Publisher
 // Route::get('/publishers', [PublisherController::class, 'index'])->name('publisher.index');
 Route::resource('publishers', PublisherController::class)->except([
-    'show'
+    'show', 'create', 'edit'
 ]);
+
+// Route Api Author
+Route::get('/api/publishers', [PublisherController::class, 'api'])->name('api.publishers');
+
+
+// Route Member
+// Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+Route::resource('members', MemberController::class)->except([
+    'show', 'create', 'edit'
+]);
+
+// Route Api Member
+Route::get('/api/members', [MemberController::class, 'api'])->name('api.members');
+
 
 // Route Book
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 
-// Route Member
-Route::get('/members', [MemberController::class, 'index'])->name('members.index');
 
 //Route Transaction
 Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');

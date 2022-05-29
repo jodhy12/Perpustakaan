@@ -232,6 +232,7 @@
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <!-- jQuery -->
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap -->
@@ -247,10 +248,13 @@
     <script src="{{ asset('assets/plugins/raphael/raphael.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
+
     <!-- ChartJS -->
     <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
+
     {{-- Vue Js --}}
     <script src="https://unpkg.com/vue@3"></script>
+
     {{-- Axios --}}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     @yield('js')

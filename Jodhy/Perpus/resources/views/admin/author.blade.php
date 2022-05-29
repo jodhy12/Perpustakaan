@@ -31,23 +31,6 @@
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($authors as $index => $author)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $author->name }}</td>
-                                        <td>{{ $author->email }}</td>
-                                        <td>{{ $author->phone_number }}</td>
-                                        <td>{{ $author->address }}</td>
-                                        <td class="text-center">
-                                            <a href="#" @click="editData({{ $author }})"
-                                                class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="#" @click="deleteData({{ $author->id }})"
-                                                class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -63,7 +46,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form :action="actionUrl" method="POST">
+                    <form :action="actionUrl" method="POST" @submit="submitForm($event, data.id)">
                         @csrf
 
                         <input type="hidden" name="_method" value="PUT" v-if="editStatus">
@@ -72,22 +55,22 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" name="name" class="form-control" placeholder="Enter name" required
-                                    :value="author.name">
+                                    :value="data.name">
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" name="email" class="form-control" placeholder="Enter email" required
-                                    :value="author.email">
+                                    :value="data.email">
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
                                 <input type="text" name="phone_number" class="form-control"
-                                    placeholder="Enter phone number" required :value="author.phone_number">
+                                    placeholder="Enter phone number" required :value="data.phone_number">
                             </div>
                             <div class="form-group">
                                 <label>Address</label>
                                 <input type="text" name="address" class="form-control" placeholder="Enter address"
-                                    required :value="author.address">
+                                    required :value="data.address">
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -120,8 +103,52 @@
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
+    <script type="text/javascript">
+        const actionUrl = '{{ route('authors.store') }}'
+        const apiUrl = '{{ route('api.authors') }}'
+
+        const columns = [{
+                data: 'DT_RowIndex',
+                class: 'text-center',
+                orderable: true
+            },
+            {
+                data: 'name',
+                class: 'text-center',
+                orderable: true
+            },
+            {
+                data: 'email',
+                class: 'text-center',
+                orderable: true
+            },
+            {
+                data: 'phone_number',
+                class: 'text-center',
+                orderable: true
+            },
+            {
+                data: 'address',
+                class: 'text-center',
+                orderable: true
+            },
+            {
+                render: (index, row, data, meta) => {
+                    return `
+                <a onclick="controller.editData(event, ${meta.row})" class="btn btn-warning btn-sm">Edit</a>
+
+                <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">Delete</a>`;
+                },
+                orderable: false,
+                class: 'text-center'
+            }
+        ]
+    </script>
+
+    <script src="{{ asset('js/data.js') }}"></script>
+
     <!-- Vue JS -->
-    <script>
+    {{-- <script>
         const {
             createApp
         } = Vue
@@ -164,14 +191,14 @@
             }
 
         }).mount('#controller')
-    </script>
+    </script> --}}
 
     <!-- JQuery DT -->
-    <script>
+    {{-- <script">
         $(function() {
             $("#datatable").DataTable()
         });
-    </script>
+    </script> --}}
 
     <!-- CSS Scoped -->
     <style>

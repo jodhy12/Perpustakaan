@@ -2,7 +2,7 @@
 @section('header', 'Catalog')
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <a href="{{ route('catalogs.create') }}" class="btn btn-primary">Create new Catalog</a>
@@ -34,9 +34,9 @@
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ route('catalogs.edit', $catalog->id) }}"
-                                            class="btn btn-warning">Edit</a>
+                                            class="btn btn-warning btn-sm">Edit</a>
                                         <form action="{{ route('catalogs.destroy', $catalog->id) }}" method="POST">
-                                            <input type="submit" class="btn btn-danger" value="Delete"
+                                            <input type="submit" class="btn btn-danger btn-sm" value="Delete"
                                                 onclick="return confirm('are you sure ?')">
                                             @method('delete')
                                             @csrf
@@ -47,18 +47,22 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                    <ul class="pagination pagination-sm m-0 float-right">
-                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                    </ul>
-                </div> --}}
             </div>
         </div>
     </div>
     <!-- /.card -->
+@endsection
+
+@section('js')
+    <!-- CSS Scoped -->
+    <style>
+        .row {
+            margin: 0 auto;
+        }
+
+        td a.btn {
+            margin: 5px;
+        }
+
+    </style>
 @endsection

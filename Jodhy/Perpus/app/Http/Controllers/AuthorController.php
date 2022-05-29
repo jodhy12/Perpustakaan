@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+
 
 class AuthorController extends Controller
 {
@@ -22,6 +22,14 @@ class AuthorController extends Controller
     {
         $authors = Author::all();
         return view('admin.author', compact('authors'));
+    }
+
+    public function api()
+    {
+        $authors = Author::all();
+        $datatables = datatables()->of($authors)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**

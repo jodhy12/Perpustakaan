@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +23,13 @@ class PublisherController extends Controller
         return view('admin.publisher', compact('publishers'));
     }
 
+    public function api()
+    {
+        $publishers = Publisher::all();
+        $datatables = datatables()->of($publishers)->addIndexColumn();
+
+        return $datatables->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -68,7 +79,7 @@ class PublisherController extends Controller
      */
     public function edit(Publisher $publisher)
     {
-        return view('admin.publisher.edit', compact('publisher'));
+        // return view('admin.publisher.edit', compact('publisher'));
     }
 
     /**

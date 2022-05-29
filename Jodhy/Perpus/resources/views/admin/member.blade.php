@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('header', 'Publisher')
+@section('header', 'Member')
 
 @section('css')
     <!-- CSS Datatable -->
@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header">
                         <a href="#" class="btn btn-primary" @click="addData">
-                            Create new Publisher
+                            Create new Member
                         </a>
                     </div>
                     <!-- /.card-header -->
@@ -25,9 +25,10 @@
                                 <tr>
                                     <th style="width: 10px">#</th>
                                     <th class="text-center">Name</th>
-                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Gender</th>
                                     <th class="text-center">Phone Number</th>
                                     <th class="text-center">Address</th>
+                                    <th class="text-center">Email</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -41,7 +42,7 @@
             <div class="modal-dialog modal-default">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Publisher</h4>
+                        <h4 class="modal-title">Member</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -58,9 +59,17 @@
                                     :value="data.name">
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="Enter email" required
-                                    :value="data.email">
+                                <label>Gender</label>
+                                <div class="form-check">
+                                    <input type="radio" name="gender" class="form-check-input" value="L"
+                                        :checked="data.gender === 'L'">
+                                    <label class="form-check-label">Laki - Laki</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" name="gender" class="form-check-input" value="P"
+                                        :checked="data.gender === 'P'">
+                                    <label class="form-check-label">Perempuan</label>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
@@ -71,6 +80,11 @@
                                 <label>Address</label>
                                 <input type="text" name="address" class="form-control" placeholder="Enter address"
                                     required :value="data.address">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control" placeholder="Enter email" required
+                                    :value="data.email">
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -102,10 +116,9 @@
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-
-    <script type="text/javascript">
-        const actionUrl = '{{ route('publishers.store') }}'
-        const apiUrl = '{{ route('api.publishers') }}'
+    <script>
+        const actionUrl = '{{ route('members.index') }}'
+        const apiUrl = '{{ route('api.members') }}'
 
         const columns = [{
                 data: 'DT_RowIndex',
@@ -118,7 +131,7 @@
                 orderable: true
             },
             {
-                data: 'email',
+                data: 'gender',
                 class: 'text-center',
                 orderable: true
             },
@@ -133,72 +146,22 @@
                 orderable: true
             },
             {
+                data: 'email',
+                class: 'text-center',
+                orderable: true
+            },
+            {
                 render: (index, row, data, meta) => {
-                    return `
-                <a onclick="controller.editData(event, ${meta.row})" class="btn btn-warning btn-sm">Edit</a>
-
+                    return `<a onclick="controller.editData(event, ${meta.row})" class="btn btn-warning btn-sm">Edit</a>
                 <a class="btn btn-danger btn-sm" onclick="controller.deleteData(event, ${data.id})">Delete</a>`;
                 },
-                orderable: false,
-                class: 'text-center'
+                class: 'text-center',
+                orderable: false
             }
         ]
     </script>
 
     <script src="{{ asset('js/data.js') }}"></script>
-
-    <!-- Vue Js -->
-    {{-- <script>
-        const {
-            createApp
-        } = Vue
-
-        createApp({
-            data() {
-                return {
-                    publisher: {},
-                    actionUrl: '{{ route('publishers.store') }}',
-                    editStatus: false
-                }
-            },
-            mounted() {
-
-            },
-            methods: {
-                addData() {
-                    this.publisher = {}
-                    this.actionUrl = '{{ route('publishers.store') }}'
-                    this.editStatus = false
-                    $('#modal-default').modal()
-                },
-                editData(data) {
-                    this.publisher = data
-                    this.actionUrl = '{{ route('publishers.store') }}/' + this.publisher.id
-                    this.editStatus = true
-                    $('#modal-default').modal()
-                },
-                deleteData(id) {
-                    this.actionUrl = '{{ route('publishers.store') }}/' + id
-                    if (confirm("Are you sure ? ")) {
-                        axios.post(this.actionUrl, {
-                                _method: 'delete'
-                            })
-                            .then(response => {
-                                location.reload()
-                            });
-                    }
-                }
-            }
-
-        }).mount('#controller')
-    </script> --}}
-
-    <!-- JQuery DT -->
-    {{-- <script>
-        $(function() {
-            $("#datatable").DataTable()
-        });
-    </script> --}}
 
     <!-- CSS Scoped -->
     <style>
@@ -211,5 +174,4 @@
         }
 
     </style>
-
 @endsection
