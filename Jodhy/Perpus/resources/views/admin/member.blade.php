@@ -132,8 +132,11 @@
             },
             {
                 data: 'gender',
+                render: (data, type, row, meta) => {
+                    return type === 'display' && data === 'L' ? 'Laki - Laki' : 'Perempuan';
+                },
                 class: 'text-center',
-                orderable: true
+                orderable: false
             },
             {
                 data: 'phone_number',
