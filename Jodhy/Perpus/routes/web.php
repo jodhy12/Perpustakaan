@@ -73,7 +73,13 @@ Route::get('/api/members', [MemberController::class, 'api'])->name('api.members'
 
 
 // Route Book
-Route::get('/books', [BookController::class, 'index'])->name('books.index');
+// Route::get('/books', [BookController::class, 'index'])->name('books.index');
+Route::resource('books', BookController::class)->except([
+    'show', 'create', 'edit'
+])->middleware('auth');
+
+//Route Api Book
+Route::get('/api/books', [BookController::class, 'api'])->name('api.books')->middleware('auth');
 
 
 //Route Transaction
