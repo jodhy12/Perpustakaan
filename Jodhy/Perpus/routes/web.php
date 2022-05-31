@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CatalogController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\TransactionController;
 use App\Models\Catalog;
 use App\Models\Publisher;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +31,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Route Catalog
 // Route::get('/catalogs', [CatalogController::class, 'index'])->name('catalogs.index');
@@ -78,9 +80,16 @@ Route::resource('books', BookController::class)->except([
     'show', 'create', 'edit'
 ])->middleware('auth');
 
-//Route Api Book
+// Route Api Book
 Route::get('/api/books', [BookController::class, 'api'])->name('api.books')->middleware('auth');
 
 
-//Route Transaction
-Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+// Route Transaction
+// Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+Route::resource('transactions', TransactionController::class)->except([
+    'show', 'create', 'edit'
+]);
+Route::get('/api/transactons', [TransactionController::class, 'api'])->name('api.transactions');
+
+// Route Dashboard
+Route::get('/home', [AdminController::class, 'dashboard'])->name('dashboard');
