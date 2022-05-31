@@ -192,12 +192,15 @@
                         }
                     }
                 },
+
                 submitForm(e, id) {
                     e.preventDefault()
+                    const alertData = !this.editStatus ? alert('Data has been saved') : alert(
+                        'Data has been updated')
                     const actionUrl = !this.editStatus ? this.actionUrl : this.actionUrl + '/' + id
                     axios.post(actionUrl, new FormData($(event.target)[0]))
                         .then(resp => {
-                            alert('Data has been saved')
+                            alertData,
                             location.reload(true)
                         })
                         .catch(err => console.log(err))
@@ -209,6 +212,11 @@
                 filteredList() {
                     return this.books.filter(book => {
                         return book.title.toLowerCase().includes(this.search.toLowerCase())
+                        // const computedObj = {
+                        //     ...book
+                        // }
+                        // return Object.keys(computedObj).some(key => ('' + computedObj[key]).toLowerCase()
+                        //     .includes(this.search.toLowerCase()))
                     })
                 }
             }
