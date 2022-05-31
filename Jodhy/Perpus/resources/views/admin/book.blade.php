@@ -26,6 +26,7 @@
                 <div class="info-box" @click="editData(book)" style="cursor: pointer">
                     <div class="info-box-content">
                         <span class="info-box-text h5">@{{ book.title }} (@{{ book.qty }})</span>
+                        <span class="info-box-text h6">Created at @{{ book.date }}</span>
                         <span class="info-box-number">Rp. @{{ numberWithSpaces(book.price) }},-<small></small></span>
                     </div>
                 </div>

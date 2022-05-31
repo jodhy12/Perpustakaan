@@ -29,6 +29,7 @@
                                     <th class="text-center">Phone Number</th>
                                     <th class="text-center">Address</th>
                                     <th class="text-center">Email</th>
+                                    <th class="text-center">Created At</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -150,6 +151,11 @@
             },
             {
                 data: 'email',
+                class: 'text-left',
+                orderable: true
+            },
+            {
+                data: 'date',
                 class: 'text-left',
                 orderable: true
             },

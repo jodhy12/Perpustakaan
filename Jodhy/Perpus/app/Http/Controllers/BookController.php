@@ -28,6 +28,9 @@ class BookController extends Controller
     public function api()
     {
         $books = Book::all();
+        foreach ($books as $book) {
+            $book->date = dateFormat($book->created_at);
+        }
 
         return json_encode($books);
     }
