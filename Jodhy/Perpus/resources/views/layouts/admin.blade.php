@@ -37,37 +37,27 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                        <i class="fas fa-search"></i>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        <span class="badge badge-warning navbar-badge">{{ countDataLateReturn() }}</span>
                     </a>
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header">{{ countDataLateReturn() }} Notifications for
+                            Lending late return</span>
+                        <div class="dropdown-divider"></div>
+                        <div class="overflow-auto" style="height: 250px">
+                            @foreach (dataNotif() as $item)
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-user mr-2"></i> {{ $item->members->name }}
+                                    <span class="float-right text-muted text-sm">Late
+                                        {{ $item->different > 1 ? $item->different . ' Days' : $item->different . ' Day' }}</span>
+                                </a>
+                            @endforeach
+                        </div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
-                </li>
-                @guest
-                    @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
-                        </li>
-                    @endif
-                @endguest
                 @auth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}"

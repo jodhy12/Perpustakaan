@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionDetailController;
 use App\Models\Catalog;
 use App\Models\Publisher;
 use App\Models\Transaction;
@@ -84,12 +85,10 @@ Route::resource('books', BookController::class)->except([
 Route::get('/api/books', [BookController::class, 'api'])->name('api.books')->middleware('auth');
 
 
-// Route Transaction
+// Route Transaction Details
 // Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
-Route::resource('transactions', TransactionController::class)->except([
-    'show', 'create', 'edit'
-]);
-Route::get('/api/transactons', [TransactionController::class, 'api'])->name('api.transactions');
+Route::resource('transactions', TransactionController::class)->middleware('auth');
+Route::get('/api/transactions', [TransactionController::class, 'api'])->name('api.transactions')->middleware('auth');
 
 // Route Dashboard
-Route::get('/home', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('/home', [AdminController::class, 'dashboard'])->name('dashboard')->middleware('auth');

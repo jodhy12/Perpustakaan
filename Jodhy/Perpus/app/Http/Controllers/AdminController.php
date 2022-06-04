@@ -15,7 +15,7 @@ class AdminController extends Controller
     {
         $total_member = Member::count();
         $total_book = Book::count();
-        $total_transaction = Transaction::whereMonth('date_start', date('m'))->count();
+        $total_transaction = Transaction::count();
         $total_publisher = Publisher::count();
 
         // DataDonut

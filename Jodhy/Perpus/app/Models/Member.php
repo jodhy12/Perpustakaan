@@ -18,6 +18,6 @@ class Member extends Model
 
     public function transaction()
     {
-        return $this->belongsTo(Transaction::class, 'member_id');
+        return $this->hasMany(Transaction::class, 'member_id');
     }
 }

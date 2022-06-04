@@ -183,6 +183,10 @@ class HomeController extends Controller
             ->get('*');
 
         // return $data20;
+
+        $transactions = DB::table('transactions')->select('*')->join('members', 'members.id', '=', 'transactions.member_id')->get();
+
+        return $transactions;
         return view('home');
     }
 }

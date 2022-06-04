@@ -8,13 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['member_id', 'date_start', 'date_end', 'status'];
+
     public function members()
     {
-        return $this->hasMany(Member::class, 'member_id');
+        return $this->belongsTo(Member::class, 'member_id');
     }
 
     public function books()
     {
-        return $this->belongsToMany(Book::class, 'transaction_details');
+        return $this->belongsToMany(Book::class, 'transaction_details')->withTimestamps()->withPivot('qty');
     }
 }
