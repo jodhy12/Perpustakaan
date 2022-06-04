@@ -22,8 +22,27 @@
                     <div class="card-header">
                         <h3 class="card-title">Edit Transaction</h3>
                     </div>
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('error') }}
+                        </div>
+                    @endif
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            <span>{{ session()->get('success') }}</span>
+                            <span style="display: inherit">Redirect after 3 seconds...</span>
+                            <a class="btn text-white" href="{{ route('transactions.show', $transaction->id) }}"
+                                style="display: table-row">Go to details</a>
+                        </div>
 
-                    <form action="{{ route('transactions.update', $transaction->id) }}" method="POST">
+                        <script>
+                            setTimeout(function() {
+                                window.location.href = '{{ route('transactions.show', $transaction->id) }}'
+                            }, 3000); // 3 second
+                        </script>
+                    @endif
+                    <form action="{{ route('transactions.update', $transaction->id) }}" method="POST"
+                        onsubmit="return confirm('Update this data ?')">
                         @csrf
                         @method('PUT')
 
@@ -141,6 +160,10 @@
     </script>
 
     <style>
+        .dark-mode .select2-container .select2-search--inline .select2-search__field {
+            color: #301515;
+        }
+
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: rgb(184, 70, 70);
         }

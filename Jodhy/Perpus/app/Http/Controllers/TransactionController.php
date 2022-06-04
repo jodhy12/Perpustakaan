@@ -63,7 +63,7 @@ class TransactionController extends Controller
             $transaction->urlButton = '<a href="' . route('transactions.show', $transaction->id) . '" class="btn btn-info btn-sm">Details</a>
             <form action="' . route('transactions.destroy', $transaction->id) . '" method="POST">
             <input type="hidden" name="_method" value="DELETE">
-            <input type="submit" value="Delete" class="btn btn-danger btn-sm" onclick="return confirm(`are you sure ?`)">
+            <input type="submit" value="Delete" class="btn btn-danger btn-sm" onclick="return confirm(`Are you sure for delete this one?`)">
             ' . csrf_field() . '
             </form>';
         }
@@ -109,12 +109,10 @@ class TransactionController extends Controller
         $transaction->books()->attach($request->books, ['qty' => 1]);
 
         foreach ($request->books as $bookArray) {
-            $books = Book::findOrFail($bookArray);
-            $books->qty = $books->qty - 1;
-            $books->update();
+            lessBookQty($bookArray);
         }
 
-        return redirect('transactions');
+        return redirect()->back()->with('success', 'Data has been saved');;
     }
 
     /**
@@ -190,37 +188,35 @@ class TransactionController extends Controller
             $transaction->books()->attach($request->books, ['qty' => 1]);
             $transaction->update($data);
 
+
             // Update Transaksi buku yang akan diEdit
             // Transaksi Buku Awal
             foreach ($arrayOfBooks as $bookArray) {
-                $book = Book::findOrFail($bookArray);
-                $book->qty = $book->qty + 1;
-                $book->update();
+                addBookQty($bookArray);
             }
 
             // Transaksi Buku Setelah di Edit
             foreach ($data['books'] as $bookArray) {
-                $book = Book::findOrFail($bookArray);
-                $book->qty = $book->qty - 1;
-                $book->update();
+                lessBookQty($bookArray);
             }
-            return redirect('transactions');
+
+            return redirect()->back()->with('success', 'Data has been Updated');
         }
 
         // When Status 1 / Sudah dikembalikan
 
-        // When Update but old data not same with new update data will be error
+        // When Update, but old data book not same with new update data will be error
         if (!($arrayOfBooks == $request->books)) {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Data buku tidak boleh diubah kalau status sudah dikembalikan');
         }
 
         $transaction->update($data);
 
+        // Success update, Add Qty Books
         foreach ($data['books'] as $bookArray) {
-            $book = Book::findOrFail($bookArray);
-            $book->qty = $book->qty + 1;
-            $book->update();
+            addBookQty($bookArray);
         }
+
         return redirect('transactions');
     }
 
@@ -259,9 +255,7 @@ class TransactionController extends Controller
 
         // Get update the quantity of book
         foreach ($arrayOfBooks as $bookArray) {
-            $book = Book::findOrFail($bookArray);
-            $book->qty = $book->qty + 1;
-            $book->update();
+            addBookQty($bookArray);
         }
 
         return redirect()->back();

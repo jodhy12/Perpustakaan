@@ -49,8 +49,9 @@
                         <div class="overflow-auto" style="height: 250px">
                             @foreach (dataNotif() as $item)
                                 <a href="#" class="dropdown-item">
-                                    <i class="fas fa-user mr-2"></i> {{ $item->members->name }}
-                                    <span class="float-right text-muted text-sm">Late
+                                    <i class="fas fa-user mr-2"></i>
+                                    <span style="font-size: 13px;">{{ $item->members->name }}</span>
+                                    <span class="float-right text-muted text-sm" style="font-size: 10px;">Late
                                         {{ $item->different > 1 ? $item->different . ' Days' : $item->different . ' Day' }}</span>
                                 </a>
                             @endforeach

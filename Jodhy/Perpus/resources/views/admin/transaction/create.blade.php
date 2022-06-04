@@ -21,8 +21,22 @@
                     <div class="card-header">
                         <h3 class="card-title">Create Transaction</h3>
                     </div>
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            <span>{{ session()->get('success') }}</span>
+                            <span style="display: inherit">Redirect after 3 seconds...</span>
+                            <a class="btn text-white" href="{{ route('transactions.index') }}"
+                                style="display: table-row">Back to transactions</a>
+                        </div>
 
-                    <form action="{{ route('transactions.store') }}" method="POST" name="myForm">
+                        <script>
+                            setTimeout(function() {
+                                window.location.href = '{{ route('transactions.index') }}'
+                            }, 3000); // 3 second
+                        </script>
+                    @endif
+                    <form action="{{ route('transactions.store') }}" method="POST"
+                        onsubmit="return confirm('Save this data ?')">
                         @csrf
 
                         <div class="modal-body">
@@ -40,7 +54,7 @@
                                 <label>Lending Date</label>
                                 <div>
                                     <label>Start</label>
-                                    <input type="date" class="form-control" name="date_start" id="datePicker" required>
+                                    <input type="date" class="form-control" name="date_start" required>
                                     <label style="padding-top: 10px;">End</label>
                                     <input type="date" class="form-control" name="date_end" required>
                                 </div>
@@ -62,7 +76,8 @@
                         </div>
                         <div class="modal-footer justify-content-between">
                             <a href="{{ route('transactions.index') }}" type="button" class="btn btn-default">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Save
+                                changes</button>
                         </div>
                     </form>
                 </div>
@@ -86,7 +101,13 @@
                 }
             },
 
-            mounted() {}
+            mounted() {},
+
+            methods: {
+                handleSubmit() {
+                    return confirm('Save this data ?')
+                }
+            }
         }).mount('#Tx')
     </script>
 
@@ -105,6 +126,10 @@
     <style>
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: rgb(184, 70, 70);
+        }
+
+        .dark-mode .select2-container .select2-search--inline .select2-search__field {
+            color: #301515;
         }
 
     </style>

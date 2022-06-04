@@ -2,6 +2,7 @@
 
 // namespace App\Helpers;
 
+use App\Models\Book;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 
@@ -31,4 +32,18 @@ function dataNotif()
 function countDataLateReturn()
 {
     return count(dataNotif());
+}
+
+function lessBookQty($val)
+{
+    $book = Book::findOrFail($val);
+    $book->qty = $book->qty - 1;
+    $book->update();
+}
+
+function addBookQty($val)
+{
+    $book = Book::findOrFail($val);
+    $book->qty = $book->qty + 1;
+    $book->update();
 }
