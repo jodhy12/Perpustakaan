@@ -225,6 +225,5 @@
         td a.btn {
             margin: 5px;
         }
-
     </style>
 @endsection

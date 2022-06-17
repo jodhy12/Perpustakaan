@@ -4,13 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Catalog;
 use App\Models\Member;
 use App\Models\Publisher;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function dashboard()
     {
         $total_member = Member::count();
@@ -47,5 +57,68 @@ class AdminController extends Controller
         $labelPie = Author::join('books', 'books.author_id', '=', 'authors.id')->groupBy('authors.id')->orderBy('authors.id')->pluck('authors.name');
 
         return view('admin.dashboard', compact('total_member', 'total_book', 'total_transaction', 'total_publisher', 'data_donut', 'label_donut', 'dataBar', 'labelPie', 'dataPie'));
+    }
+
+    public function catalog()
+    {
+        $catalogs = Catalog::with('books')->get();
+
+        return view('admin.catalog.index', compact('catalogs')); // and also can use ['catalogs' => $catalogs]
+    }
+
+    public function member()
+    {
+        return view('admin.member');
+    }
+
+    public function publisher()
+    {
+        $publishers = Publisher::with('books')->get();
+
+        return view('admin.publisher', compact('publishers'));
+    }
+
+    public function author()
+    {
+        $authors = Author::all();
+        return view('admin.author', compact('authors'));
+    }
+
+    public function book()
+    {
+        $publishers = Publisher::all();
+        $authors = Author::all();
+        $catalogs = Catalog::all();
+
+        return view('admin.book', compact('publishers', 'authors', 'catalogs'));
+    }
+
+    public function transaction()
+    {
+        if (auth()->user()->role('petugas')) {
+            $transactions = Transaction::with('members')->get();
+            return view('admin.transaction.index', compact('transactions'));
+        } else {
+            return abort(403);
+        }
+    }
+
+    public function test_spatie()
+    {
+        // $role = Role::create(['name' => 'petugas']);
+        // $permission = Permission::create(['name' => 'index peminjaman']);
+
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        // $user = auth()->user();
+        // $user->assignRole('petugas');
+        // return $user;
+
+        // $user = User::with('roles')->get();
+        // return $user;
+
+        // $user = User::where('id', 2)->first();
+        // $user->removeRole('petugas');
     }
 }

@@ -90,5 +90,13 @@ Route::get('/api/books', [BookController::class, 'api'])->name('api.books')->mid
 Route::resource('transactions', TransactionController::class)->middleware('auth');
 Route::get('/api/transactions', [TransactionController::class, 'api'])->name('api.transactions')->middleware('auth');
 
-// Route Dashboard
-Route::get('/home', [AdminController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+// Route Admin
+Route::get('/home', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('catalogs', [AdminController::class, 'catalog'])->name('catalogs.index');
+Route::get('members', [AdminController::class, 'member'])->name('members.index');
+Route::get('publishers', [AdminController::class, 'publisher'])->name('publishers.index');
+Route::get('authors', [AdminController::class, 'author'])->name('authors.index');
+Route::get('books', [AdminController::class, 'book'])->name('books.index');
+Route::get('transactions', [AdminController::class, 'transaction'])->name('transactions.index');
+
+Route::get('testSpatie', [AdminController::class, 'test_spatie']);
